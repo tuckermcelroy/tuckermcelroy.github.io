@@ -1,4 +1,6 @@
-# Onesimus Dome
+---
+title: Onesimus Dome
+---
 
 ## Author of [*The Jubilee of Auriel*](jubilee-auriel.md) and [*Sheaf:Prodigal*](sheaf-prodigal.md)
 
