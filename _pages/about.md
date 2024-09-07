@@ -19,5 +19,5 @@ This is the home page of Tucker McElroy
 - Code Repo
 
 # Poetry
-- Onesimus Dome
+- [Onesimus Dome](poetry-main.md)
 - [Old Website](http://onesimusdome.com)
