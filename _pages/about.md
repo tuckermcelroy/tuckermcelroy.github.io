@@ -8,3 +8,16 @@ redirect_from:
 ---
 
 This is the home page of Tucker McElroy
+
+# Code Repositories
+1. Ecce Signum
+2. VARHi
+
+   
+# Multivariate Real-Time Signal Extraction
+- Chapter 3
+- Code Repo
+
+# Poetry
+- Onesimus Dome
+- [Old Website](http://onesimusdome.com)
