@@ -1,4 +1,6 @@
-# Sheaf: Prodigal
+---
+title:  Sheaf: Prodigal
+---
 
 ![Side Image](/images/Sheaf6-jpg.png)
 
