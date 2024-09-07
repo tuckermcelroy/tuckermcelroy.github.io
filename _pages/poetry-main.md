@@ -4,4 +4,4 @@
 
 Epic poetry, science fiction, and redemptive drama
 
-![Ocean Background](/docs/assets/images/uploaded-from-file-j.png)
+![Ocean Background](/images/uploaded-from-file-j.png)
