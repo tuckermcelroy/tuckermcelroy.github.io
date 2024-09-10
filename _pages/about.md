@@ -15,7 +15,7 @@ This is the home page of Tucker McElroy
 
    
 # Multivariate Real-Time Signal Extraction
-- Chapter 3
+- [Chapter 3](https://html-preview.github.io/?url=https://github.com/tuckermcelroy/tuckermcelroy.github.io/blob/master/_pages/basic.html)
 - Code Repo
 
 # Poetry
