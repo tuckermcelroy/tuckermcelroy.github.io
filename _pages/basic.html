@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Multivariate Real-Time Signal Extraction - 3&nbsp; Introduction to the Multivariate Direct Filter Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./constraint.html" rel="next">
+<link href="./lpp.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./basic.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to the Multivariate Direct Filter Analysis</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Multivariate Real-Time Signal Extraction</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lpp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear Prediction Problems</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./basic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to the Multivariate Direct Filter Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./constraint.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multivariate Direct Filter Analysis for Non-stationary Processes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./coint.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Multivariate Direct Filter Analysis for Co-integrated Processes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./custom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Filter Customization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mixed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multivariate Direct Filter Analysis for Mixed Frequency Processes</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#background-on-multivariate-filtering" id="toc-background-on-multivariate-filtering" class="nav-link active" data-scroll-target="#background-on-multivariate-filtering"><span class="header-section-number">3.1</span> Background on Multivariate Filtering</a></li>
+  <li><a href="#multivariate-direct-filter-analysis-of-the-lpp" id="toc-multivariate-direct-filter-analysis-of-the-lpp" class="nav-link" data-scroll-target="#multivariate-direct-filter-analysis-of-the-lpp"><span class="header-section-number">3.2</span> Multivariate Direct Filter Analysis of the LPP</a></li>
+  <li><a href="#computation-of-the-linear-prediction-filter" id="toc-computation-of-the-linear-prediction-filter" class="nav-link" data-scroll-target="#computation-of-the-linear-prediction-filter"><span class="header-section-number">3.3</span> Computation of the Linear Prediction Filter</a></li>
+  <li><a href="#sec-leading-ind" id="toc-sec-leading-ind" class="nav-link" data-scroll-target="#sec-leading-ind"><span class="header-section-number">3.4</span> Qualitative Easing by Leading Indicators: an Empirical Study</a>
+  <ul class="collapse">
+  <li><a href="#sec-bimdfaudfa" id="toc-sec-bimdfaudfa" class="nav-link" data-scroll-target="#sec-bimdfaudfa"><span class="header-section-number">3.4.1</span> Bivariate MDFA versus Univariate DFA</a></li>
+  <li><a href="#sec-lead-snr" id="toc-sec-lead-snr" class="nav-link" data-scroll-target="#sec-lead-snr"><span class="header-section-number">3.4.2</span> Measuring Lead and Signal-to-Noise Effects of a Leading Indicator</a></li>
+  </ul></li>
+  <li><a href="#multivariate-dfa-with-multiple-targets" id="toc-multivariate-dfa-with-multiple-targets" class="nav-link" data-scroll-target="#multivariate-dfa-with-multiple-targets"><span class="header-section-number">3.5</span> Multivariate DFA with Multiple Targets</a>
+  <ul class="collapse">
+  <li><a href="#lpp-with-multiple-targets" id="toc-lpp-with-multiple-targets" class="nav-link" data-scroll-target="#lpp-with-multiple-targets"><span class="header-section-number">3.5.1</span> LPP with Multiple Targets</a></li>
+  <li><a href="#mdfa-for-multiple-targets" id="toc-mdfa-for-multiple-targets" class="nav-link" data-scroll-target="#mdfa-for-multiple-targets"><span class="header-section-number">3.5.2</span> MDFA for Multiple Targets</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-basic" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to the Multivariate Direct Filter Analysis</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><span class="quarto-unresolved-ref">?sec-lpp</span> introduced the LPP and its ideal solution. This chapter extends the discussion by determining optimal solutions without restricting to parametric models.</p>
+<section id="background-on-multivariate-filtering" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="background-on-multivariate-filtering"><span class="header-section-number">3.1</span> Background on Multivariate Filtering</h2>
+<p>Recall the spectral representation of <span class="math inline">\(\{ X_t \}\)</span> via <span class="quarto-unresolved-ref">?eq-specRep</span>. Because there are <span class="math inline">\(n\)</span> series in the orthogonal increments process <span class="math inline">\(\mathcal{Z}\)</span>, we have <span class="math display">\[
+  X_{t,j} = \int_{-\pi}^{\pi} e^{i \omega t} \, d\mathcal{Z}_j (\omega )
+\]</span> for each <span class="math inline">\(1 \leq j \leq n\)</span>, and hence for a scalar target <span class="math inline">\(\{ Y_t \}\)</span> we have <span id="eq-spec-rep-partial"><span class="math display">\[
+Y_t = \sum_{j=1}^n  \int_{-\pi}^{\pi} e^{i \omega  t} \, \Psi_{1 j} (e^{-i \omega }) \,
+d\mathcal{Z}_j (\omega ).
+\tag{3.1}\]</span></span> Each of the functions <span class="math inline">\(\Psi_{1j} (e^{-i \omega })\)</span> is complex scalar-valued, and can be decomposed in terms of its gain and phase functions. We here provide some background on these functions, because they provide an interpretation of the action of the linear filter on the input time series.</p>
+<p>Any complex number <span class="math inline">\(\zeta\)</span> is decomposed in terms of its real <span class="math inline">\(\Re \zeta\)</span> and imaginary <span class="math inline">\(\Im \zeta\)</span> parts: <span class="math display">\[
+    \zeta = \Re \zeta + i \, \Im \zeta.
+\]</span> The <em>magnitude</em> of <span class="math inline">\(\zeta\)</span> is defined via <span class="math display">\[
+  | \zeta | = \sqrt{ { \Re \zeta }^2 + { \Im \zeta }^2 }.
+\]</span> If this is positive, then <span class="math inline">\(\zeta / |\zeta|\)</span> is a complex number with unit modulus, and hence can be represented as <span class="math inline">\(\exp \{ -i \, \mbox{Arg} \zeta \}\)</span> for some angle in <span class="math inline">\([0, 2 \pi]\)</span> known as <span class="math inline">\(\mbox{Arg} \zeta\)</span>, or the <em>angular portion</em> of <span class="math inline">\(\zeta\)</span>. It follows that <span class="math display">\[
+  \zeta = | \zeta | \, \exp \{ -i \, \mbox{Arg} \zeta \},
+\]</span> which is known as the Polar decomposition of <span class="math inline">\(\zeta\)</span>. Sometimes it is of interest to use a negative Polar decomposition based upon the negative magnitude, which can still be written in terms of <span class="math inline">\(\mbox{Arg} \zeta\)</span> via <span class="math display">\[
+  \zeta = - | \zeta| \, \exp \{ -i \, [ \pi +  \mbox{Arg} \zeta ] \},
+\]</span> using <span class="math inline">\(e^{-i \pi} = -1\)</span>. The angular portion of <span class="math inline">\(\zeta\)</span> can be directly computed from the real and imaginary parts of <span class="math inline">\(\zeta\)</span> via <span class="math display">\[
+  \mbox{Arg} \zeta = \arctan \left( \frac{ -\Im \zeta }{ \Re \zeta} \right).
+\]</span> Now when <span class="math inline">\(\zeta\)</span> is a function of <span class="math inline">\(\omega \in [-\pi, \pi]\)</span>, then the magnitude and angular portions also become functions of <span class="math inline">\(\omega\)</span>. In particular, a scalar frequency response function has a magnitude function (called the gain function) and angular function (called the phase function). In the case of some scalar filter <span class="math inline">\(\Psi (L)\)</span> (e.g., the component filter <span class="math inline">\(\Psi_{1j} (L)\)</span>) we obtain <span class="math display">\[
+  \Psi  (e^{-i \omega }) = | \Psi  (e^{-i \omega })| \,
+  \exp \{ - i \, \mbox{Arg} \Psi (e^{-i \omega }) \}.
+\]</span> At <span class="math inline">\(\omega = 0\)</span>, we know the frequency response function is <span class="math inline">\(\Psi (1) = \sum_{\ell \in \mathbb Z} \psi (\ell)\)</span>, which is real; hence the phase function at <span class="math inline">\(\omega = 0\)</span> must be an integer multiple of <span class="math inline">\(\pi\)</span>. It is advantageous to ensure the phase function takes the value zero, as this will facilitate the definition of the phase delay function discussed below. We can ensure this condition by allowing the gain function to be signed. Denoting these by <span class="math inline">\(A(\omega )\)</span> (for amplitude, or signed gain) and <span class="math inline">\(\Phi (\omega )\)</span> (for continuous phase), we have <span id="eq-frf-gain-and-phase"><span class="math display">\[
+\Psi (e^{-i \omega }) = A(\omega ) \, \exp \{ - i \, \Phi (\omega ) \}.
+\tag{3.2}\]</span></span> There may be frequencies <span class="math inline">\(\omega\)</span> for which the frf equals zero; because the real and imaginary parts of zero are both zero, there is an indeterminancy to the angular portion. However, because the frf is continuous in <span class="math inline">\(\omega\)</span> (which follows from summability of the coefficients) we should define the phase function at the zeroes such that it is continuous. By adjusting the angular portion by an integer multiple of <span class="math inline">\(\pi\)</span>, we can ensure that it will be a continuous function of <span class="math inline">\(\omega\)</span>; this adjustment can be compensated by inserting a sign change in the gain function. In this way, the signed gain and continuous phase functions can be computed: both <span class="math inline">\(A\)</span> and <span class="math inline">\(\Phi\)</span> will be continuous functions of <span class="math inline">\(\omega\)</span>, and <span class="math inline">\(\Phi (0) = 0\)</span> as well.</p>
+<div id="exm-cts-phasegain" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.1 </strong></span>Consider the scalar filter <span class="math inline">\(\Psi (L) = (1 + L + L^2)/3\)</span>. The frf is <span class="math display">\[
+\Psi (e^{-i \omega}) = \frac{1 + e^{-i \omega} + e^{-i 2 \omega} }{3},
+\]</span> and so the modulus works out to be <span class="math display">\[
+| \Psi (e^{-i \omega}) | = \frac{ \sqrt{1 - \cos (2 \omega) }}{ 3 \sqrt{1 - \cos \omega}}.
+\]</span> We can alter this function to take on certain negative values, and thereby obtain a continuous phase function. Observe that <span class="math display">\[
+\Psi (e^{-i \omega})  =  \frac{e^{i \omega} + 1 + e^{-i \omega}}{3} \, e^{-i \omega}
+= \frac{1 + 2 \cos \omega}{3} \, e^{-i \omega}.
+\]</span> When <span class="math inline">\(\omega \in [0, 2\pi/3)\)</span>, the function <span class="math inline">\(1 + 2 \cos \omega\)</span> is real and positive, but when <span class="math inline">\(\omega \in (2 \pi/3, \pi]\)</span> the function is negative. So we see that <span class="math inline">\(A (\omega) = (1 + 2 \cos \omega)/3\)</span> is the signed gain function, and <span class="math inline">\(\Phi (\omega) = \omega\)</span> is the continuous phase function.</p>
+</div>
+<p>Substituting <a href="#eq-frf-gain-and-phase">Equation&nbsp;<span>3.2</span></a> into the spectral representation <a href="#eq-spec-rep-partial">Equation&nbsp;<span>3.1</span></a> of the target, where <span class="math inline">\(A_j\)</span> and <span class="math inline">\(\Phi_j\)</span> are the gain and phase functions of <span class="math inline">\(\Psi_{1j} (e^{-i \omega }),\)</span> yields <span class="math display">\[
+  Y_t = \sum_{j=1}^n  \int_{-\pi}^{\pi} e^{i \omega  \, [ t - \omega^{-1} \,
+                                                          \Phi_j (\omega )   ] } \,
+  A_j ( \omega ) \,    d\mathcal{Z}_j (\omega ).
+\]</span> This representation is interpreted as follows: the target is the sum of <span class="math inline">\(n\)</span> filtered series, where each orthogonal increments process <span class="math inline">\(\mathcal{Z}_j\)</span> has been dilated by the signed gain function <span class="math inline">\(A_j\)</span>, and the timing of the sinusoidal component <span class="math inline">\(e^{i \omega t }\)</span> has been delayed by <span class="math inline">\(\omega ^{-1} \, \Phi_j (\omega )\)</span>. This quantity, called the <em>phase delay function</em>, is well-defined in a neighborhood of zero, as seen in the following result.</p>
+<div id="prp-phase-delay" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 3.1 </strong></span>If the scalar filter <span class="math inline">\(\Psi (L)\)</span> satisfies <span class="math inline">\(\sum_{\ell \in \mathbb Z} \ell \, \psi (\ell) &lt; \infty\)</span>, <span class="math inline">\(\Psi (1) \neq 0\)</span>, and the phase function is continuously defined, then the phase delay function <span class="math display">\[
+  \phi (\omega ) = \frac{\Phi (\omega ) }{ \omega }
+\]</span> is well-defined for <span class="math inline">\(\omega \in [-\pi, \pi]\)</span>, and <span class="math display">\[
+  \phi (0) = \dot{\Phi} (0) = \frac{ \sum_{\ell \in \mathbb Z} \ell \, \psi (\ell) }{
+    \sum_{\ell \in \mathbb Z}   \psi (\ell) }.
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>First note that the signed gain function is even, and hence <span class="math inline">\(\dot{A} (0) = 0\)</span>. Differentiating <a href="#eq-frf-gain-and-phase">Equation&nbsp;<span>3.2</span></a> and evaluating at zero yields <span class="math display">\[
+  -i \, \sum_{\ell \in \mathbb Z} \ell \, \psi (\ell) = \frac{\partial}{\partial \omega }
+  \Psi (e^{-i \omega }) \vert_{\omega = 0}
+  = \dot{A} (0) \, e^{-i \, \Phi (0) } + A(0) \, e^{-i \, \Phi (0) } \,
+  (-i \, \dot{\Phi} (0)).
+\]</span> Using <span class="math inline">\(\dot{A} (0) = 0\)</span>, <span class="math inline">\(\Phi (0) = 0\)</span>, and <span class="math inline">\(A(0) = \Psi (1)\)</span> yields <span class="math display">\[
+  \dot{\Phi} (0) = \frac{ \sum_{\ell \in \mathbb Z} \ell \, \psi (\ell) }{
+    \sum_{\ell \in \mathbb Z}   \psi (\ell) }.  \quad \Box
+\]</span></p>
+</div>
+<p>The amplitude effects can be understood as dilations of the input spectral densities. If the spectral density matrix of the input process is denoted <span class="math inline">\(F\)</span>, then <span class="math inline">\(F_{jj}\)</span> is the spectral density of the <span class="math inline">\(j\)</span>th component input series; its contribution to the target output involves the increment <span class="math display">\[
+  A_j ( \omega ) \,    d\mathcal{Z}_j (\omega),
+\]</span> and the associated spectral density is <span class="math display">\[
+  {| A_j (\omega) |}^2 \, F_{jj} (\omega).
+\]</span> There are approximate empirical versions of these relations, which can be described in terms of the DFT. Applying the definition <span class="quarto-unresolved-ref">?eq-dft-def</span> to the scalar output <span class="math inline">\(\{ Y_t \}\)</span>, and utilizing <a href="#eq-spec-rep-partial">Equation&nbsp;<span>3.1</span></a>, we obtain <span class="math display">\[
+  \widetilde{Y} (\xi) = \int_{-\pi}^{\pi} T^{-1/2} \, \sum_{t=1}^T e^{i (\omega - \xi) t}
+  \, \sum_{j=1}^n \Psi_{1j} (e^{-i \omega}) \, d\mathcal{Z}_j (\omega).
+\]</span> Note that the summation is bounded as <span class="math inline">\(T \rightarrow\infty\)</span> unless <span class="math inline">\(\omega = \xi\)</span>; it can be shown that the variance of the difference between <span class="math inline">\(\widetilde{Y} (\xi)\)</span> and <span class="math inline">\(\sum_{j=1}^n \Psi_{1j} (e^{-i \xi}) \, \widetilde{X}_j (\xi) = \Psi (e^{-i \omega}) \, \widetilde{X} (\omega)\)</span> tends to zero (see Proposition 9.7.3 of <span class="citation" data-cites="politis2019time">T. S. McElroy and Politis (<a href="#ref-politis2019time" role="doc-biblioref">2019</a>)</span>), so that we have the approximate result <span id="eq-convolution-dft"><span class="math display">\[
+\widetilde{Y} (\omega) \approx   \Psi  (e^{-i \omega}) \, \widetilde{X} (\omega).
+\tag{3.3}\]</span></span> From a practical point of view we can ignore the appproximation error in <a href="#eq-convolution-dft">Equation&nbsp;<span>3.3</span></a>, due to the <em>uniform super-consistency</em> argument for integrals and discrete sums;see <span class="citation" data-cites="wildi2005">Wildi (<a href="#ref-wildi2005" role="doc-biblioref">2005</a>)</span> and <span class="citation" data-cites="wildi2008">Wildi (<a href="#ref-wildi2008" role="doc-biblioref">2008</a>)</span>. Utilizing <span class="quarto-unresolved-ref">?eq-per-def</span>, we obtain an approximate relation of periodograms: <span id="eq-convolution-per"><span class="math display">\[
+\widehat{F}_Y (\omega) \approx  \Psi(e^{-i \omega}) \, \widehat{F}_X (\omega) \,
+{   \Psi(e^{i \omega})  }^{\prime}.
+\tag{3.4}\]</span></span> This approximation, when averaged over Fourier frequencies, will be used below to justify Direct Filter Analysis.</p>
+</section>
+<section id="multivariate-direct-filter-analysis-of-the-lpp" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="multivariate-direct-filter-analysis-of-the-lpp"><span class="header-section-number">3.2</span> Multivariate Direct Filter Analysis of the LPP</h2>
+<p>We can now discuss a more general solution to the LPP. One perspective on <span class="quarto-unresolved-ref">?prp-GPP</span> is that it provides a particular class of concurrent filters that arise from specified models. However, so long as these models are mis-specified, the resulting concurrent filters will be sub-optimal. Therefore, it may be possible to improve performance by utilizing broader classes of concurrent filters that are not derived from a particular model. The Direct Filter Analysis (DFA) seeks a concurrent filter <span class="math inline">\(\widehat{\Psi} (L)\)</span> that optimizes the MSE in a given LPP. While DFA was originated to handle univariate time series, its multivariate generalization – Multivariate Direct Filter Analysis (MDFA) – is designed for the broader context of LPPs discussed in <span class="quarto-unresolved-ref">?sec-lpp</span>.</p>
+<p>The entire class of concurrent filters corresponds to the collection of power series in <span class="math inline">\(L\)</span>. Here we are interested in scalar targets given <span class="math inline">\(n\)</span> input series, so the coefficient matrices of the concurrent filters are <span class="math inline">\(1 \times n\)</span>. We may be interested in some subcollection <span class="math inline">\(\mathcal{G}\)</span> of all concurrent filters. For instance, <span class="math inline">\(\mathcal{G}\)</span> could be the optimal solutions to an LPP for a particular process, i.e., consist of all <span class="math inline">\(\widehat{\Psi} (L)\)</span> given in <a href="#eq-GPPsoln">Equation&nbsp;<span>3.16</span></a> for a particular <span class="math inline">\(\Psi (L)\)</span> and <span class="math inline">\(\Theta (L)\)</span>. Or we might consider much broader classes of filters, that are described in terms of the rate of decay of the filter coefficients, e.g., <span class="math display">\[
+  \mathcal{G} = \{ \Upsilon (L) : \Upsilon (e^{-i \omega}) \;
+    \mbox{is twice continuously differentiable at } \; \omega = 0 \}.
+\]</span> Alternatively, <span class="math inline">\(\mathcal{G}\)</span> might consist of all VARMA filters of a particular AR and MA order, or might consist of all Zero-Pole Combination (ZPC) filters of a given specification <span class="citation" data-cites="wildi2007real">Wildi (<a href="#ref-wildi2007real" role="doc-biblioref">2007</a>)</span>. The original univariate DFA of <span class="citation" data-cites="wildi2007real">Wildi (<a href="#ref-wildi2007real" role="doc-biblioref">2007</a>)</span> approached the LPP with <span class="math inline">\(\mathcal{G}\)</span> consisting of appropriately restricted ZPC filters.</p>
+<p>For now, we shall suppose that the concurrent filters of <span class="math inline">\(\mathcal{G}\)</span> belong to some parametric family described by a parameter <span class="math inline">\(\vartheta\)</span> belonging to a parameter manifold. Because we seek elements of <span class="math inline">\(\mathcal{G}\)</span> that will solve an LPP, i.e., be a good concurrent approximation to <span class="math inline">\(\Psi (L)\)</span>, we use the notation <span id="eq-filter-set"><span class="math display">\[
+\mathcal{G} = \{
+  \widehat{\Psi}_{\vartheta}  (L) : \vartheta \; \mbox{belongs to a
+    parameter space} \}.
+\tag{3.5}\]</span></span> Whereas the model-based approach to the LPP discussed in <span class="quarto-unresolved-ref">?sec-lpp</span> involves minimizing a particular parametric form of the filter error MSE – namely the function <span class="math inline">\(J_{\Psi} (\vartheta, G)\)</span> for <span class="math inline">\(G\)</span> corresponding either to the periodogram or true spectrum – a more direct approach is to minimize a general expression for the filter error MSE over a given set <span class="math inline">\(\mathcal{G}\)</span>. The real-time estimation error is given in <span class="quarto-unresolved-ref">?eq-dfa-error</span>, which has mean zero and variance <span id="eq-dfa-mvar"><span class="math display">\[
+\mathbb E[ E_t^2 ]  = { \langle  \left[ \Psi (z) -  \widehat{\Psi}_{\vartheta} (z) \right] \,
+  \widetilde{F} \,
+  {  \left[ \Psi (z) -  \widehat{\Psi}_{\vartheta} (z) \right] }^{*} \rangle }_0.
+\tag{3.6}\]</span></span> This suggests the criterion function <span class="math inline">\(D_{\Psi} (\vartheta, G)\)</span> for any Hermitian function <span class="math inline">\(G\)</span>, defined as <span id="eq-mdfa-criterion"><span class="math display">\[
+D_{\Psi} (\vartheta, G) = { \langle  \left[ \Psi (z) -
+                    \widehat{\Psi}_{\vartheta} (z) \right] \,   G \,
+  {  \left[ \Psi (z) -  \widehat{\Psi}_{\vartheta} (z) \right] }^{*} \rangle }_0.
+\tag{3.7}\]</span></span> This is the MDFA criterion function. An equivalent formula to <a href="#eq-mdfa-criterion">Equation&nbsp;<span>3.7</span></a> that can be useful for calculations is <span id="eq-mdfa-alternate"><span class="math display">\[
+D_{\Psi} (\vartheta, G) = \mbox{tr} \{
+  { \langle G \, M_{\vartheta} \rangle }_0 \} \qquad M_{\vartheta} (z) =
+  {  \left[ \Psi (z) -  \widehat{\Psi}_{\vartheta} (z) \right] }^{*} \,
+{  \left[ \Psi (z) -  \widehat{\Psi}_{\vartheta} (z) \right] }.
+\tag{3.8}\]</span></span> Given a filter class <span class="math inline">\(\mathcal{G}\)</span>, the best possible concurrent filter is given by <span class="math inline">\(\widehat{\Psi}_{\vartheta (\widetilde{F})}\)</span>, where <span class="math inline">\(\vartheta (\widetilde{F})\)</span> is a minimizer of <span class="math inline">\(D_{\Psi} (\vartheta, \widetilde{F})\)</span>. This <span class="math inline">\(\vartheta (\widetilde{F})\)</span> is the PTV for the filter parameter, in analogy with the terminology for model parameters. Clearly, if the set <span class="math inline">\(\mathcal{G}\)</span> is rendered sufficiently large to include the optimal concurrent filter for that particular LPP and process – as given in <span class="quarto-unresolved-ref">?prp-GPP</span> – then there exists some <span class="math inline">\(\widetilde{\vartheta}\)</span> such that <span class="math inline">\(\widehat{\Psi}_{\widetilde{\vartheta}}\)</span> is identical with the optimal filter. However, if <span class="math inline">\(\mathcal{G}\)</span> is smaller, then the PTV <span class="math inline">\(\vartheta (\widetilde{F})\)</span> is as close as possible according to <span class="math inline">\(D_{\Psi}\)</span> discrepancy to the optimal filter.</p>
+<p>A case of interest arises from taking a very broad class <span class="math inline">\(\mathcal{G}\)</span>: let <span class="math inline">\(\mathcal{G}\)</span> consist of all length <span class="math inline">\(q\)</span> concurrent filters, with <span id="eq-conc-filter"><span class="math display">\[
+\vartheta^{\prime}  =  \left[ {\widehat{\psi} (0) },
+                              {\widehat{\psi} (1) }^{}, \ldots,   {\widehat{\psi} (q-1) }^{} \right].
+\tag{3.9}\]</span></span> So <span class="math inline">\(\vartheta\)</span> is a column vector of length <span class="math inline">\(q n\)</span>. Then the criterion <a href="#eq-mdfa-criterion">Equation&nbsp;<span>3.7</span></a> can be rewritten as <span id="eq-mdfa-crit-linear"><span class="math display">\[
+D_{\Psi} (\vartheta, G)  = \vartheta^{\prime} \, B \, \vartheta -
+  \vartheta^{\prime} \, b -
+  b^{\prime} \, \vartheta + { \langle \Psi (z) \, G \, { \Psi (z) }^* \rangle }_0,
+\tag{3.10}\]</span></span> where <span id="eq-bstar-expression"><span class="math display">\[
+b^{\prime}  = \left[ { \langle \Psi (z) \, G \rangle }_{0}, { \langle \Psi (z) \, G \rangle }_{1},
+                     \ldots, { \langle \Psi (z) \, G \rangle }_{q-1} \right],
+\tag{3.11}\]</span></span> and <span class="math inline">\(B\)</span> is a block matrix, where the <span class="math inline">\(jk\)</span>th <span class="math inline">\(n \times n\)</span> block of is <span class="math inline">\({ \langle G \rangle }_{k-j}\)</span> for <span class="math inline">\(1 \leq j,k \leq q\)</span>.</p>
+<div id="prp-mdfa-quadsoln" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 3.2 </strong></span>The minimizer of the MDFA criterion <a href="#eq-mdfa-criterion">Equation&nbsp;<span>3.7</span></a>, given that <span class="math inline">\(\mathcal{G}\)</span> consists of all length <span class="math inline">\(q\)</span> concurrent filters, is <span class="math display">\[
+  \vartheta = B^{-1} \, b,
+\]</span> where the <span class="math inline">\(jk\)</span>th block of <span class="math inline">\(B\)</span> is <span class="math inline">\({ \langle G \rangle }_{k-j}\)</span>, and <span class="math inline">\(b\)</span> is given by <a href="#eq-bstar-expression">Equation&nbsp;<span>3.11</span></a>. The minimal value is <span id="eq-opt-val-mdfa"><span class="math display">\[
+{ \langle \Psi (z) \, G \, { \Psi (z) }^* \rangle }_0 - b^{\prime} \, B^{-1} \, b.
+\tag{3.12}\]</span></span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>First note that the typical component of <span class="math inline">\(b\)</span> has the form <span id="eq-psi-g-comp"><span class="math display">\[
+{ \langle \Psi (z) \, G \rangle }_{\ell} = \sum_{k \in \mathbb Z} \psi (k) \,
+{ \langle G \rangle }_{\ell-k}
+\tag{3.13}\]</span></span> for <span class="math inline">\(0 \leq \ell &lt; q\)</span>,which shows that <span class="math inline">\(b\)</span> is real-valued. The objective function is a quadratic in <span class="math inline">\(\vartheta\)</span>, and therefore the minimizer is obtained by computing the gradient and Hessian, which are <span class="math inline">\(-2 b + 2 B \, \vartheta\)</span> and <span class="math inline">\(2 B\)</span> respectively, yielding the solution. Plugging back into <span class="math inline">\(D_{\Psi}\)</span> yields <a href="#eq-opt-val-mdfa">Equation&nbsp;<span>3.12</span></a>. <span class="math inline">\(\quad \Box\)</span></p>
+</div>
+<div id="cnj-rem-matrix-mdfa-soln" class="custom theorem conjecture">
+<p><span class="theorem-title"><strong>Conjecture 3.1 </strong></span>To implement <a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a> in practice, <span class="math inline">\(G\)</span> is given by the periodogram so that <span class="math inline">\({ \langle G \rangle }_h = \widehat{\Gamma} (h)\)</span>. It is necessary to compute <span class="math inline">\(b\)</span>, given by <a href="#eq-bstar-expression">Equation&nbsp;<span>3.11</span></a>, and we can proceed by approximating the integrals over a Riemann mesh corresponding to Fourier frequencies; this is discussed further below.</p>
+</div>
+<p>This broad class <span class="math inline">\(\mathcal{G}\)</span> of filters will furnish concurrent filters that closely approximate those of <span class="quarto-unresolved-ref">?prp-GPP</span> as <span class="math inline">\(q \rightarrow\infty\)</span>.</p>
+<div id="exm-multi-step-fore-4" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.2 (Multi-step Ahead Forecasting.) </strong></span>Suppose we consider the one-step ahead forecasting of stationary time series and <span class="math inline">\(\mathcal{G}\)</span> corresponds to all VMA filters of order <span class="math inline">\(q\)</span> (i.e., the filter corresponds to a VMA(<span class="math inline">\(q-1\)</span>) polynomial), where<br>
+<span class="math display">\[
+  \vartheta  = \mbox{vec} [{\widehat{\psi} (0) }^{\prime},
+                           {\widehat{\psi} (1) }^{\prime},   \ldots,
+                           {\widehat{\psi} (q-1) }^{\prime} ].
+\]</span> With <span class="math inline">\(\Psi (L) = L^{-1}\)</span> from <a href="#eq-mdfa-criterion">Equation&nbsp;<span>3.7</span></a> we have <span class="math display">\[
+\begin{align}
+D_{\Psi} (\vartheta, G) &amp; =
+  { \langle  \left[ z^{-1} e_1^{\prime} -  \widehat{\Psi}_{\vartheta} (z) \right] \,   G \,
+    {  \left[ z^{-1} e_1^{\prime} -  \widehat{\Psi}_{\vartheta} (z) \right] }^{*} \rangle }_0 \\
+&amp; = { \langle  \left[ e_1^{\prime} -  \sum_{\ell = 0}^{q-1} \widehat{\psi} (\ell)
+                      \, z^{\ell+1} \right] \,
+  G \,   {  \left[ e_1^{\prime} -  
+                     \sum_{\ell = 0}^{q-1} \widehat{\psi} (\ell) \, z^{\ell+1} \right]
+  }^{*} \rangle }_0 \\
+&amp; = { \langle G \rangle }_0 - 2 \, \vartheta^{\prime} \, { \langle G \rangle }_{1:q}
+\, e_1    + \vartheta^{\prime} \, { \langle G \rangle }_{0:(q-1),0:(q-1)} \, \vartheta.
+\end{align}
+\]</span> Hence the optimizer is <span class="math display">\[
+  \vartheta (G) = { \langle G \rangle }_{0:(q-1),0:(q-1)}^{-1} \,
+  { \langle G \rangle }_{1:q} \, e_1,
+\]</span> which is the first component of the solution to the Yule-Walker system of order <span class="math inline">\(q\)</span> determined by <span class="math inline">\(G\)</span>. Therefore the MDFA solution is the same as the fit of a VAR(<span class="math inline">\(q\)</span>) using <span class="quarto-unresolved-ref">?prp-GPP</span>.</p>
+</div>
+<p>The empirical problem is solved by minimizing <span class="math inline">\(D_{\Psi} (\vartheta, \widehat{F})\)</span>, yielding the estimator <span class="math inline">\(\vartheta (\widehat{F})\)</span>. The empirical criterion can be simply computed using <a href="#eq-mdfa-alternate">Equation&nbsp;<span>3.8</span></a> and <span class="quarto-unresolved-ref">?eq-acf2per</span>, namely <span class="math display">\[
+  D_{\Psi} (\vartheta, \widehat{F}) = \sum_{|h| &lt; T } \mbox{tr} \{
+    \widehat{\Gamma} (h) \,  { \langle  M_{\vartheta} \rangle }_{-h} \}.
+\]</span> Filtering with <span class="math inline">\(\widehat{\Psi}_{\vartheta (\widehat{F})}\)</span> instead of <span class="math inline">\(\widehat{\Psi}_{\vartheta (\widetilde{F})}\)</span> involves some statistical error, which vanishes as <span class="math inline">\(T \rightarrow\infty\)</span> because <span class="math inline">\(\vartheta ( \widehat{F})\)</span> is consistent for the PTV. We can quantify this additional error if we know the statistical properties of the estimate; under fairly broad conditions, it follows a central limit theorem. As in <span class="quarto-unresolved-ref">?sec-lpp</span>, we assume the HT conditions and that the Hessian <span class="math inline">\(H(\vartheta) = \nabla \nabla^{\prime} D_{\Psi} (\vartheta, \widetilde{F})\)</span> of <span class="math inline">\(D_{\Psi}\)</span> is positive definite at the PTV. The function <span class="math inline">\(M\)</span> is defined in <a href="#eq-mdfa-alternate">Equation&nbsp;<span>3.8</span></a>.</p>
+<div id="thm-MDFAasymp" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3.1 </strong></span>Suppose that <span class="math inline">\(\vartheta (\widetilde{f})\)</span> exists uniquely in the interior of the filter parameter space, and that <span class="math inline">\(H(\vartheta (\widetilde{F}))\)</span> is positive definite. Suppose that <span class="math inline">\(\{ X_t \}\)</span> has finite fourth moments, conditions (HT1)-(HT6) of <span class="citation" data-cites="taniguchi2012asymptotic">Taniguchi and Kakizawa (<a href="#ref-taniguchi2012asymptotic" role="doc-biblioref">2012</a>)</span> hold, and that the fourth order cumulant function of <span class="math inline">\(\{ X_t \}\)</span> is zero. Then the estimator is consistent for the PTV, and <span class="math display">\[
+  \sqrt{T} \, \left( \vartheta( \widehat{F} ) - \vartheta (\widetilde{F}) \right)
+  \stackrel{{\cal L}}{\Longrightarrow }\mathcal{N} \left( 0, { H(\vartheta (\widetilde{F})) }^{-1} \,
+                                V (\vartheta (\widetilde{F})) \, { H(\vartheta (\widetilde{F})) }^{-1} \right)
+\]</span> as <span class="math inline">\(T \rightarrow\infty\)</span>, where <span class="math display">\[
+  V_{jk} (\vartheta) =  \mbox{tr} \{ { \langle  \partial_j M_{\vartheta} (z) \, \widetilde{F} \,
+    \partial_k M_{\vartheta} (z) \, \widetilde{F} \rangle }_0 \}.
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>This is proved in the same way as <span class="quarto-unresolved-ref">?thm-LPP-Clt</span>.</p>
+</div>
+<p>We designate the resulting prediction function <span class="math inline">\(\widehat{\Psi}_{\widehat{\vartheta}}\)</span> as a <em>Linear Prediction Filter</em> (LPF).</p>
+<div id="exm-var1-3" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.3 (VAR(1).) </strong></span>Again consider a VAR(1) process, and suppose we wish to use MDFA to approximate the optimal LPP solution – even though we don’t know the true dynamics. Let <span class="math inline">\(\mathcal{G}\)</span> denote the set of moving average filters of length <span class="math inline">\(q\)</span>, and <span class="math inline">\(G\)</span> is the spectral density of the VAR(1); the solution given by <a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a> can be compared to that of the LPP, which has the first <span class="math inline">\(q\)</span> components given by <span class="math display">\[
+\varphi^{\prime} = [ \psi (0) + A_{\Psi} (\Phi), \psi (1),
+\ldots, \psi (q-1)].
+\]</span> This is an approximate solution to the system <span class="math inline">\(\vartheta^{\prime} \, B = b^{\prime}\)</span>, because <span class="math inline">\(\varphi^{\prime} \, B\)</span> has <span class="math inline">\(j+1\)</span>th component, for <span class="math inline">\(0 \leq j \leq q-1\)</span>, equal to <span class="math display">\[
+   \sum_{\ell=0}^{q-1} \psi (\ell) \, {\langle G \rangle }_{j-\ell}
++ A_{\Psi} (\Phi) \, \Gamma (j).
+\]</span> Noting that <span class="math display">\[
+A_{\Psi} (\Phi) \, \Gamma (j)
+= \sum_{\ell &lt; 0 } \psi (-\ell) \, \Phi^{-\ell} \, \Gamma (j)
+= \sum_{\ell &lt; 0} \psi (-\ell) \, \Gamma (j- \ell),
+\]</span> because for a VAR(1) process <span class="math inline">\(\Gamma (h) = \Phi^h \, \Gamma (0)\)</span> when <span class="math inline">\(h \geq 0\)</span>, we see that component <span class="math inline">\(j+1\)</span> of <span class="math inline">\(\varphi^{\prime} \, B\)</span> is <span class="math display">\[
+  \sum_{\ell \leq q-1} \psi (\ell) \, \Gamma (j-\ell)
+  =  {[ \Re b^{\prime} ]}_{j+1} - \sum_{\ell \geq q} \psi (\ell) \, \Gamma (j-\ell).
+\]</span> As <span class="math inline">\(q \rightarrow\infty\)</span> the error term vanishes (for each <span class="math inline">\(j\)</span>), indicating that <span class="math inline">\(\varphi^{\prime} \, B \approx b^{\prime}\)</span>, or <span class="math inline">\(\vartheta \approx \varphi\)</span>. So the difference in this VAR(1) case between the LPP solution and that of MDFA is due to the fact that the former (LPP) assumes an infinite-length filter. This is reflected in the finitely truncated error term.</p>
+</div>
+</section>
+<section id="computation-of-the-linear-prediction-filter" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="computation-of-the-linear-prediction-filter"><span class="header-section-number">3.3</span> Computation of the Linear Prediction Filter</h2>
+<p>Here we discuss the calculation of the quantities <span class="math inline">\(B\)</span> and <span class="math inline">\(b\)</span> appearing in <a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>. In the case that <span class="math inline">\(G\)</span> corresponds to the periodogram only a finite number of sample autocovariances are non-zero, and <a href="#eq-psi-g-comp">Equation&nbsp;<span>3.13</span></a> simplifies. More generally, suppose that for some <span class="math inline">\(r &gt; 0\)</span> we have <span class="math inline">\({ \langle G \rangle }_h = 0\)</span> for all <span class="math inline">\(|h| \geq r\)</span>. Then <a href="#eq-psi-g-comp">Equation&nbsp;<span>3.13</span></a> can be written in matrix form as <span class="math display">\[
+b  =  \left[ \begin{array}{ccccccc} { \langle G \rangle }_{1-r} &amp; \ldots &amp;
+    { \langle G \rangle }_0 &amp; \ldots &amp; { \langle G \rangle }_{r-1} &amp;  0 &amp; \ldots  \\
+            \ddots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \ddots  \\
+      \ldots &amp; 0 &amp; {\langle G \rangle}_{1-r} &amp; \ldots &amp; { \langle G \rangle }_{0} &amp;
+            \ldots &amp;  { \langle G \rangle }_{r-1}  \end{array} \right] \,
+    \left[ \begin{array}{c} {\psi (1-r) }^{\prime} \\   \vdots \\ {\psi (r+q-2) }^{\prime}
+     \end{array} \right].
+\]</span> The matrix in this product has <span class="math inline">\(2r+q-2\)</span> block columns, and <span class="math inline">\(q\)</span> block rows. The dimension of <span class="math inline">\(B\)</span> is similarly <span class="math inline">\(rn \times rn\)</span>. This formulation requires a time-domain specification of the target filter, whereas in applications it is often more convenient to utilize the frequency-domain. To that end, we discuss the computation of <span class="math inline">\(b\)</span> and <span class="math inline">\(B\)</span> via discretization of the appropriate integrals over a Riemann mesh corresponding to Fourier frequencies. We let square brackets denote the floor of a real number.</p>
+<div id="def-fourier-freq" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.1 </strong></span>Given integer <span class="math inline">\(T\)</span>, the <strong>Fourier frequencies</strong> are a set of <span class="math inline">\(T\)</span> numbers in <span class="math inline">\([-\pi,\pi]\)</span> of the form <span class="math inline">\(\omega_{j} = 2 \pi j/ T\)</span> for <span class="math inline">\(-[T/2] \leq j \leq [T/2]\)</span> (when <span class="math inline">\(T\)</span> is odd) and <span class="math inline">\(-[T/2] \leq j \leq [T/2]-1\)</span> (when <span class="math inline">\(T\)</span> is even).</p>
+</div>
+<div id="cnj-rem-fourier-freq" class="custom theorem conjecture">
+<p><span class="theorem-title"><strong>Conjecture 3.2 </strong></span>In the case that <span class="math inline">\(T\)</span> is odd, there exists <span class="math inline">\(m\)</span> such that <span class="math inline">\(T = 2 m + 1\)</span>, and in this case <span class="math inline">\(-m \leq j \leq m\)</span>. In the case that <span class="math inline">\(T\)</span> is even, then <span class="math inline">\(T = 2m\)</span> for some <span class="math inline">\(m\)</span>, and <span class="math inline">\(-m \leq j \leq m-1\)</span>. Clearly, <span class="math inline">\(m = [T/2]\)</span> in either case.</p>
+</div>
+<p>The Fourier frequencies form the basis for a transformation of the time-domain sample <span class="math inline">\(\underline{X}\)</span> to the frequency-domain, known as the DFT, cf. <span class="quarto-unresolved-ref">?eq-dft-def</span>. By restricting the DFT to Fourier frequencies, we obtain a linear transformation from the <span class="math inline">\(T \times n\)</span> matrix of the sample to a <span class="math inline">\(T \times n\)</span> matrix of DFTs. To show this result, let <span class="math display">\[
+  \mathcal{X} = [ X_1, X_2, \ldots, X_T],
+\]</span> so that <span class="math inline">\(\mbox{vec} [\mathcal{X}] = \underline{X}\)</span>. Similarly, denote the matrix of DFTs by <span class="math inline">\(\widetilde{\mathcal{X}}\)</span>, with <span class="math inline">\(j\)</span>th column (<span class="math inline">\(1 \leq j \leq T\)</span>) given by <span class="math inline">\(\widetilde{X} (\omega_{j - [T/2]-1})\)</span>. In this way, the matrix of DFTs begins with <span class="math inline">\(\widetilde{X} (\omega_{-[T/2]})\)</span> in the first column, and proceeds to <span class="math inline">\(\widetilde{X} (\omega_{T-[T/2]-1})\)</span>, with frequency corresponding to either <span class="math inline">\([T/2]\)</span> or <span class="math inline">\([T/2] -1\)</span> depending on whether <span class="math inline">\(T\)</span> is odd or even. Letting <span class="math inline">\(C\)</span> denote the <span class="math inline">\(T \times T\)</span> linear transformation such that <span class="math inline">\(\widetilde{\mathcal{X}}^{\prime} = C \, \mathcal{X}^{\prime}\)</span>, we see that <span class="math display">\[
+  C_{jt} = T^{-1/2} \, \exp \{ - i \, 2 \pi t \, (j- [T/2]-1)/T \},
+\]</span> for <span class="math inline">\(1 \leq j,t \leq T\)</span>. This follows directly from <span class="quarto-unresolved-ref">?eq-dft-def</span>. Moreover, the original sample can be recovered from the DFT matrix by applying <span class="math inline">\(C^{-1}\)</span>, which equals the conjugate transpose.</p>
+<div id="prp-dft-unitary" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 3.3 </strong></span>The DFT matrix <span class="math inline">\(C\)</span> is unitary, i.e., <span class="math inline">\(C^{-1} = \overline{C}^{\prime}\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math display">\[
+\begin{align}
+  {\left[ \overline{C}^{\prime} \, C \right] }_{jk} &amp; =
+T^{-1} \, \sum_{t=1}^T \exp \{ i  \, 2 \pi j \, (t-[T/2]-1)/T \} \,
+    \exp  \{ - i \, 2 \pi k \, (t - [T/2]-1)/T \} \\
+    &amp; = \left( T^{-1} \, \sum_{t=1}^T \exp \{ i \, 2 \pi (t [j-k]) /T \} \right) \,
+    \exp \{ i \, 2 \pi (k-j) \, ([T/2]+1)/T \},
+\end{align}
+\]</span> and the expression in parentheses equals zero unless <span class="math inline">\(k=j\)</span>, in which case it equals one (this is easily verified by using the formula for the partial summation of a geometric series). Hence the <span class="math inline">\(jk\)</span>th element of <span class="math inline">\(\overline{C}^{\prime} \, C\)</span> corresponds to the <span class="math inline">\(jk\)</span>th element of the identity matrix. <span class="math inline">\(\quad \Box\)</span></p>
+</div>
+<p>To compute the quantities given in <a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>, and more generally to compute the MDFA criterion <a href="#eq-mdfa-criterion">Equation&nbsp;<span>3.7</span></a>, we propose to approximate each integral by an average over Fourier frequencies. Although finer meshes could clearly be implemented, the Fourier frequency mesh is sufficient for statistical purposes – this is because when considering the asymptotic properties of linear functionals of the periodogram (i.e., weighted linear combinations of periodogram ordinates), there is no difference between averaging over Fourier frequencies or integrating over every frequency. Moreover, using the Fourier frequencies produces an empirical criterion function that is a closer approximation to the sample mean squared error, which is shown by the following arguments. Recalling that the real-time filter error <span class="math inline">\(E_t = Y_t - \widehat{Y}_t\)</span> has variance given by <a href="#eq-dfa-mvar">Equation&nbsp;<span>3.6</span></a>, the sample variance is <span class="math display">\[
+  T^{-1} \, \sum_{t=1}^T E_t^2 = T^{-1} \sum_{j=1}^T \widehat{F}_E (\omega_{j-[T/2]-1}),
+\]</span> where <span class="math inline">\(\widehat{F}_E\)</span> is the periodogram of the filter errors. This equality is a discrete version of the Plancherel identity; the right hand side is approximated by <span id="eq-mdfa-est-super"><span class="math display">\[
+T^{-1} \sum_{j=1}^T \left[ \Psi - \widehat{\Psi} \right](\omega_{j-[T/2]-1}) \,
+   \widehat{F}_X (\omega_{j-[T/2]-1}) \,
+{\left[ \Psi - \widehat{\Psi} \right]}^{\prime} (-\omega_{j-[T/2]-1}),
+\tag{3.14}\]</span></span> using <a href="#eq-convolution-per">Equation&nbsp;<span>3.4</span></a>. Note that <a href="#eq-mdfa-est-super">Equation&nbsp;<span>3.14</span></a> is a super-consistent estimate of the sample mean squared error (see Theorem 4.8 (assertion 4) in <span class="citation" data-cites="wildi2005">Wildi (<a href="#ref-wildi2005" role="doc-biblioref">2005</a>)</span>), and is exactly the MDFA criterion <a href="#eq-mdfa-criterion">Equation&nbsp;<span>3.7</span></a> with the integrals replaced by Riemann sums over the Fourier frequencies, and <span class="math inline">\(G\)</span> replaced by the periodogram.</p>
+<p>With this justification, we see that the entries of the matrix <span class="math inline">\(B\)</span> in <a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a> are approximately computed via <span class="math display">\[
+  B_{j,k} \approx T^{-1} \sum_{\ell=1}^T G (\omega_{\ell-[T/2]-1}) \,
+   \exp \{ i \, (k-j) (\omega_{\ell-[T/2]-1}) \}
+\]</span> for <span class="math inline">\(1 \leq j,k \leq T\)</span>. Moreover, for <span class="math inline">\(0 \leq k \leq T-1\)</span> <span class="math display">\[
+  b_k^{\prime} \approx T^{-1}  \sum_{\ell=1}^T \Psi
+    ( \exp\{ -i \,\omega_{\ell-[T/2]-1} \}) \,
+     G (\omega_{\ell-[T/2]-1}) \,
+   \exp \{ i \, k (\omega_{\ell-[T/2]-1}) \},
+\]</span> where <span class="math inline">\(b^{\prime} = [ b_0^{\prime}, \ldots, b_{T-1}^{\prime} ]\)</span>. Finally, <span class="math display">\[
+  { \langle \Psi (z) \, G \, { \Psi (z) }^* \rangle }_0 \approx
+  T^{-1}  \sum_{\ell=1}^T \Psi
+    ( \exp\{ -i \,\omega_{\ell-[T/2]-1} \}) \,
+     G (\omega_{\ell-[T/2]-1}) \,  \Psi^{\prime}
+    ( \exp\{ i \,\omega_{\ell-[T/2]-1} \}).
+\]</span> Several exercises illustrate the implementation of these formulas, and their applications to filtering problems. Our implementation in <code>mdfa.filter</code> is written with a multivariate target in view; by focusing upon the first row, the applications of this chapter can be obtained.</p>
+<div id="exr-var1lpp-correct-2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.1 (Correct VAR(1) LPP.) </strong></span>This exercise compares LPP and MDFA when the model is correct. Simulate a sample of size <span class="math inline">\(T=100\)</span> from a bivariate VAR(1) process with <span class="math display">\[
+  \Phi = \left[ \begin{array}{cc} 1 &amp; 1/2 \\ -1/5 &amp; 3/10 \end{array} \right]
+\]</span> and <span class="math inline">\(\Sigma\)</span> equal to the identity. The eigenvalues are <span class="math inline">\(4/5\)</span> and <span class="math inline">\(1/2\)</span>. Implement MDFA for this sample, using the moving average filters (<a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>) of length <span class="math inline">\(q = 20\)</span> to approximate the optimal LPP filter (<span class="quarto-unresolved-ref">?exr-var1lpp-correct</span>), for the <span class="math inline">\(2\)</span>-step ahead forecasting LPP (<span class="quarto-unresolved-ref">?exm-multi-step-fore</span>). Does the MDFA concurrent filter closely match the optimal LPP filter? Repeat for <span class="math inline">\(T=200\)</span> and <span class="math inline">\(T=500\)</span>.</p>
+<section id="solution" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="solution">Solution</h5>
+<p>For <span class="math inline">\(T=200\)</span> or <span class="math inline">\(T=500\)</span>, alter <code>T.sim</code> in the following code block.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate a Gaussian VAR(1) of sample size 100:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">888</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>T.sim <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>phi.matrix <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,.<span class="dv">5</span>),<span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">2</span>,.<span class="dv">3</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>innovar.matrix <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x.sim <span class="ot">&lt;-</span> <span class="fu">varp.sim</span>(<span class="fu">array</span>(phi.matrix,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>)),innovar.matrix,T.sim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Compute sample autocovariances.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample autocovariances</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x.acf <span class="ot">&lt;-</span> <span class="fu">acf</span>(x.sim,<span class="at">type=</span><span class="st">"covariance"</span>,<span class="at">plot=</span><span class="cn">FALSE</span>,<span class="at">lag.max=</span>T.sim)[[<span class="dv">1</span>]]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>x.acf <span class="ot">&lt;-</span> <span class="fu">aperm</span>(<span class="fu">aperm</span>(x.acf,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>)),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we obtain the solution to the 2-step ahead forecasting LPP.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2-step ahead forecasting</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>psi.array <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>psi.array[,,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>psi.array[,,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>acf.array <span class="ot">&lt;-</span> x.acf[,,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>var1.fit<span class="fl">.2</span>step <span class="ot">&lt;-</span> <span class="fu">optim</span>(theta,lpp.var1,<span class="at">psi.array=</span>psi.array,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">acf.array=</span>acf.array,<span class="at">method=</span><span class="st">"BFGS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We evaluate the 2-step ahead forecast error criterion function at its minimizer, obtaining 2.9337. Then we compute the estimate of the VAR(1) coefficient <span class="math inline">\(\Phi\)</span>; the 2-step ahead forecast is obtained by multiplying the present observation by <span class="math inline">\(\Phi^2\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># phi.lpp is the VAR(1) coefficient from the LPP fit</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>phi.lpp <span class="ot">&lt;-</span> <span class="fu">var.pre2par</span>(var1.fit<span class="fl">.2</span>step<span class="sc">$</span>par,<span class="dv">1</span>,<span class="dv">2</span>)[,,<span class="dv">1</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fore.lpp <span class="ot">&lt;-</span> phi.lpp <span class="sc">%^%</span> <span class="dv">2</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>fore.lpp <span class="ot">&lt;-</span> fore.lpp[<span class="dv">1</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we set up MDFA, first selecting the filter length <span class="math inline">\(q=20\)</span> and computing the Fourier frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> T.sim</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(grid<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>lambda.ft <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>1i<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>grid<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}<span class="sc">*</span>(<span class="fu">seq</span>(<span class="dv">1</span>,grid) <span class="sc">-</span> (m<span class="sc">+</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we compute the frf for the 2-step ahead forecasting target, and calculate the periodogram at the Fourier frequencies using <code>mdfa.pergram</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(lambda.ft<span class="sc">^</span>{<span class="sc">-</span><span class="dv">2</span>},<span class="at">nrow=</span><span class="dv">1</span>) <span class="sc">%x%</span> <span class="fu">diag</span>(N)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">array</span>(frf.psi,<span class="fu">c</span>(N,N,grid))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>spec.hat <span class="ot">&lt;-</span> <span class="fu">mdfa.pergram</span>(x.sim,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we compute the MDFA filter. We do this through the function <code>mdaf.unconstrained</code>, which calls <code>mdaf.filter</code> without any constraints on filter coefficients (filter constraints are studied later in <span class="quarto-unresolved-ref">?sec-constraint</span>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fore.mdfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi,spec.hat,q)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The results of the LPP and MDFA methods can then be compared by examining the first coefficient of each. For the LPP we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fore.lpp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8422086 0.6642738</code></pre>
+</div>
+</div>
+<p>and for MDFA we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fore.mdfa[[<span class="dv">1</span>]][<span class="dv">1</span>,,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.0383626 0.2279001</code></pre>
+</div>
+</div>
+</section>
+</div>
+<div id="exr-var1lpp-incorrect-2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.2 (Incorrect VAR(1) LPP.) </strong></span>This exercise compares LPP and MDFA when the model is wrong. Simulate a sample of size <span class="math inline">\(T=100\)</span> from a bivariate VMA(1) with <span class="math display">\[
+\Theta = \left[ \begin{array}{cc} 1 &amp; 0 \\ 2/5 &amp; 2 \end{array} \right]
+\]</span> and <span class="math inline">\(\Sigma\)</span> equal to the identity. Use the moving average filter MDFA (<a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>) with <span class="math inline">\(q=20\)</span> to find the best concurrent filter, for the <span class="math inline">\(2\)</span>-step ahead forecasting LPP (<span class="quarto-unresolved-ref">?exm-multi-step-fore</span>). Compare these results to the VAR(1) LPP filter previously obtained (<span class="quarto-unresolved-ref">?exr-var1lpp-incorrect</span>), based on the mis-specified VAR(1) model. Which filter, LPP or MDFA, more closely approximates the ideal filter? Repeat for <span class="math inline">\(T=200\)</span> and <span class="math inline">\(T=500\)</span>, and explain your results.</p>
+<section id="solution-1" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="solution-1">Solution</h5>
+<p>For <span class="math inline">\(T=200\)</span> or <span class="math inline">\(T=500\)</span>, alter <code>T.sim</code> in the following code block.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">888</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>T.sim <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>theta.matrix <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>),<span class="fu">c</span>(.<span class="dv">4</span>,<span class="dv">2</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>innovar.matrix <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>x.sim <span class="ot">&lt;-</span> <span class="fu">vmaq.sim</span>(<span class="fu">array</span>(theta.matrix,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>)),innovar.matrix,T.sim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Compute sample autocovariances.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample autocovariances</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x.acf <span class="ot">&lt;-</span> <span class="fu">acf</span>(x.sim,<span class="at">type=</span><span class="st">"covariance"</span>,<span class="at">plot=</span><span class="cn">FALSE</span>,<span class="at">lag.max=</span>T.sim)[[<span class="dv">1</span>]]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>x.acf <span class="ot">&lt;-</span> <span class="fu">aperm</span>(<span class="fu">aperm</span>(x.acf,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>)),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we obtain the solution to the 2-step ahead forecasting LPP.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2-step ahead forecasting</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>psi.array <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>psi.array[,,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>psi.array[,,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>acf.array <span class="ot">&lt;-</span> x.acf[,,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">4</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>var1.fit<span class="fl">.2</span>step <span class="ot">&lt;-</span> <span class="fu">optim</span>(theta,lpp.var1,<span class="at">psi.array=</span>psi.array,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">acf.array=</span>acf.array,<span class="at">method=</span><span class="st">"BFGS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We compute the estimate of the VAR(1) coefficient <span class="math inline">\(\Phi\)</span>; the 2-step ahead forecast is obtained by multiplying the present observation by <span class="math inline">\(\Phi^2\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># phi.lpp is the VAR(1) coefficient from the LPP fit</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>phi.lpp <span class="ot">&lt;-</span> <span class="fu">var.pre2par</span>(var1.fit<span class="fl">.2</span>step<span class="sc">$</span>par,<span class="dv">1</span>,<span class="dv">2</span>)[,,<span class="dv">1</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fore.lpp <span class="ot">&lt;-</span> phi.lpp <span class="sc">%^%</span> <span class="dv">2</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>fore.lpp <span class="ot">&lt;-</span> fore.lpp[<span class="dv">1</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we set up MDFA, first selecting the filter length <span class="math inline">\(q=20\)</span> and computing the Fourier frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> T.sim</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(grid<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>lambda.ft <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>1i<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>grid<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}<span class="sc">*</span>(<span class="fu">seq</span>(<span class="dv">1</span>,grid) <span class="sc">-</span> (m<span class="sc">+</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we compute the frf for the 2-step ahead forecasting target, and calculate the periodogram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(lambda.ft<span class="sc">^</span>{<span class="sc">-</span><span class="dv">2</span>},<span class="at">nrow=</span><span class="dv">1</span>) <span class="sc">%x%</span> <span class="fu">diag</span>(N)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">array</span>(frf.psi,<span class="fu">c</span>(N,N,grid))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>spec.hat <span class="ot">&lt;-</span> <span class="fu">mdfa.pergram</span>(x.sim,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we compute the MDFA filter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fore.mdfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi,spec.hat,q)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The results of the LPP and MDFA methods can then be compared by examining the first coefficient of each. For the LPP we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fore.lpp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1142641  0.1013095</code></pre>
+</div>
+</div>
+<p>and for MDFA we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fore.mdfa[[<span class="dv">1</span>]][<span class="dv">1</span>,,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01040808 0.03128738</code></pre>
+</div>
+</div>
+<p>Whereas the LPP method relies on a mis-specified model to construct the 2-step ahead forecasting filter, MDFA avoids modeling altogether, and therefore has superior performance. In particular, the 2-step ahead forecast error criterion at the LPP solution is 2.0394, while the same error for the MDFA is 1.4725.</p>
+</section>
+</div>
+<div id="exr-var1mdfa-filter" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.3 (MDFA VAR(1) Filtering.) </strong></span>This exercise examines MDFA applied to the trend of a VAR(1) process. Simulate a sample of size <span class="math inline">\(T=5000\)</span> from a bivariate VAR(1) process with <span class="math display">\[
+  \Phi = \left[ \begin{array}{cc} 1 &amp; 1/2 \\ -1/5 &amp; 3/10 \end{array} \right]
+\]</span> and <span class="math inline">\(\Sigma\)</span> equal to the identity. The eigenvalues are <span class="math inline">\(.8\)</span> and <span class="math inline">\(.5\)</span>. Apply the ideal low-pass filter (cf. <span class="quarto-unresolved-ref">?exm-ideal-low</span>) with <span class="math inline">\(\mu = \pi/6\)</span> to the sample (truncate the filter to <span class="math inline">\(1000\)</span> coefficients on each side). Use the moving average filter MDFA (<a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>) to find the best concurrent filter, setting <span class="math inline">\(q= 20\)</span>. Apply this concurrent filter to the simulation, and compare the relevant portions to the ideal trend. Also determine the in-sample performance, in comparison to the criterion value (<a href="#eq-opt-val-mdfa">Equation&nbsp;<span>3.12</span></a>). Target the trends for both time series.</p>
+<section id="solution-2" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="solution-2">Solution</h5>
+<p>We begin with a simulation of length <span class="math inline">\(5000\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>T.sim <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>phi.matrix <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,.<span class="dv">5</span>),<span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">2</span>,.<span class="dv">3</span>))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>innovar.matrix <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>x.sim <span class="ot">&lt;-</span> <span class="fu">varp.sim</span>(<span class="fu">array</span>(phi.matrix,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>)),innovar.matrix,T.sim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we construct the ideal low-pass filter. We use the custom function <code>mvar.filter</code> to do multivariate filtering.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># low-pass LPP</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> pi<span class="sc">/</span><span class="dv">6</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>len <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>lp.filter <span class="ot">&lt;-</span> <span class="fu">c</span>(mu<span class="sc">/</span>pi,<span class="fu">sin</span>(<span class="fu">seq</span>(<span class="dv">1</span>,len)<span class="sc">*</span>mu)<span class="sc">/</span>(pi<span class="sc">*</span><span class="fu">seq</span>(<span class="dv">1</span>,len)))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>lp.filter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rev</span>(lp.filter),lp.filter[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>x.trend.ideal <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim,<span class="fu">array</span>(<span class="fu">t</span>(lp.filter) <span class="sc">%x%</span> <span class="fu">diag</span>(N),<span class="fu">c</span>(N,N,(<span class="dv">2</span><span class="sc">*</span>len<span class="sc">+</span><span class="dv">1</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we set up MDFA, first selecting the filter length <span class="math inline">\(q=20\)</span> and computing the Fourier frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> T.sim</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(grid<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>freq.ft <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>grid<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}<span class="sc">*</span>(<span class="fu">seq</span>(<span class="dv">1</span>,grid) <span class="sc">-</span> (m<span class="sc">+</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we compute the frf for the ideal low-pass target, and calculate the periodogram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,grid)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>frf.psi[<span class="fu">abs</span>(freq.ft) <span class="sc">&lt;=</span> mu] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(frf.psi,<span class="at">nrow=</span><span class="dv">1</span>) <span class="sc">%x%</span> <span class="fu">diag</span>(N)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">array</span>(frf.psi,<span class="fu">c</span>(N,N,grid))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>spec.hat <span class="ot">&lt;-</span> <span class="fu">mdfa.pergram</span>(x.sim,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we compute and apply the MDFA filter. We have to trim the output appropriately so that it can be correctly matched to the ideal trend.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>lp.mdfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi,spec.hat,q)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x.trend.mdfa <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim,lp.mdfa[[<span class="dv">1</span>]])[(len<span class="sc">-</span>q<span class="sc">+</span><span class="dv">2</span>)<span class="sc">:</span>(T.sim<span class="sc">-</span>q<span class="sc">+</span><span class="dv">1</span><span class="sc">-</span>len),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The ideal trend can now be compared to the MDFA trend.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">oma=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>)<span class="sc">+</span><span class="fl">0.1</span>,<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>),<span class="at">cex.lab=</span>.<span class="dv">8</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(x.trend.ideal[,<span class="dv">1</span>]),<span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.trend.mdfa[,<span class="dv">1</span>],<span class="at">col=</span><span class="fu">grey</span>(.<span class="dv">7</span>))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(x.trend.ideal[,<span class="dv">2</span>]),<span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.trend.mdfa[,<span class="dv">2</span>],<span class="at">col=</span><span class="fu">grey</span>(.<span class="dv">7</span>))</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Time"</span>,<span class="at">side =</span> <span class="dv">1</span>,<span class="at">line =</span> <span class="dv">1</span>,<span class="at">outer=</span><span class="cn">TRUE</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-var1-trends" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="basic_files/figure-html/fig-var1-trends-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3.1: Ideal trends (black) for the bivariate VAR(1)with real-time MDFA trends (grey) overlaid, for series one (upper panel) and series two (bottom panel).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The in-sample MSE for both components is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">mean</span>((x.trend.ideal[,<span class="dv">1</span>] <span class="sc">-</span> x.trend.mdfa[,<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>((x.trend.ideal[,<span class="dv">2</span>] <span class="sc">-</span> x.trend.mdfa[,<span class="dv">2</span>])<span class="sc">^</span><span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4306266 0.1461471</code></pre>
+</div>
+</div>
+<p>which is close to the criterion value 0.4300263, 0.137745.</p>
+</section>
+</div>
+<p><a href="#fig-var1-trends">Figure&nbsp;<span>3.1</span></a> shows the tracking of the ideal trends by the MDFA real-time trends. The MDFA criterion attempts to find a real-time filter <span class="math inline">\(\widehat{\Psi}\)</span> that is close to the target <span class="math inline">\(\Psi\)</span> at frequencies that are emphasized by spectral content in the time series, which is assessed through the periodogram. This particular optimization concept can be understood by analyzing real-time filter outputs and filter characteristics, i.e., amplitude and phase delay functions.</p>
+<div id="exr-var1mdfa2-filter" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.4 (MDFA VAR(1) Filtering Characteristics.) </strong></span>This exercise examines MDFA applied to the trend of a trivariate VAR(1) process, which is essentially three univariate AR(1) processes. Simulate a sample of size <span class="math inline">\(T=5000\)</span> from a trivariate VAR(1) process with <span class="math display">\[
+  \Phi = \left[ \begin{array}{ccc} 9/10 &amp; 0 &amp; 0 \\  0 &amp; 1/10 &amp; 0  \\ 0 &amp; 0 &amp; -9/10
+   \end{array} \right]
+\]</span> and <span class="math inline">\(\Sigma\)</span> equal to the identity. Apply the ideal low-pass filter with <span class="math inline">\(\mu = \pi/6\)</span> to the sample (truncate the filter to <span class="math inline">\(1000\)</span> coefficients on each side). Use the moving average filter MDFA (<a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>) to find the best concurrent filter, setting <span class="math inline">\(q= 12\)</span>. Apply this concurrent filter to the simulation, and compare the relevant portions to the ideal trend. Also determine the in-sample performance, in comparison to the criterion value (<a href="#eq-opt-val-mdfa">Equation&nbsp;<span>3.12</span></a>). Target the trends for both time series, and compare the results graphically. Finally, compute and graphically compare the amplitude and phase delay functions for each of the three trend targets.</p>
+<section id="solution-3" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="solution-3">Solution</h5>
+<p>We begin with a simulation of length <span class="math inline">\(5000\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>T.sim <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>phi.matrix <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(.<span class="dv">9</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">1</span>,<span class="dv">0</span>),<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="sc">-</span>.<span class="dv">9</span>))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>innovar.matrix <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">3</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>x.sim <span class="ot">&lt;-</span> <span class="fu">varp.sim</span>(<span class="fu">array</span>(phi.matrix,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>)),innovar.matrix,T.sim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we construct the ideal low-pass filter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># low-pass LPP</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> pi<span class="sc">/</span><span class="dv">6</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>len <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>lp.filter <span class="ot">&lt;-</span> <span class="fu">c</span>(mu<span class="sc">/</span>pi,<span class="fu">sin</span>(<span class="fu">seq</span>(<span class="dv">1</span>,len)<span class="sc">*</span>mu)<span class="sc">/</span>(pi<span class="sc">*</span><span class="fu">seq</span>(<span class="dv">1</span>,len)))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>lp.filter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rev</span>(lp.filter),lp.filter[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>x.trend.ideal <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim,<span class="fu">array</span>(<span class="fu">t</span>(lp.filter) <span class="sc">%x%</span> <span class="fu">diag</span>(N),<span class="fu">c</span>(N,N,(<span class="dv">2</span><span class="sc">*</span>len<span class="sc">+</span><span class="dv">1</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we set up MDFA, first selecting the filter length <span class="math inline">\(q=20\)</span> and computing the Fourier frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> T.sim</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(grid<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>freq.ft <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>grid<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}<span class="sc">*</span>(<span class="fu">seq</span>(<span class="dv">1</span>,grid) <span class="sc">-</span> (m<span class="sc">+</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we compute the frf for the ideal low-pass target, and calculate the periodogram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,grid)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>frf.psi[<span class="fu">abs</span>(freq.ft) <span class="sc">&lt;=</span> mu] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(frf.psi,<span class="at">nrow=</span><span class="dv">1</span>) <span class="sc">%x%</span> <span class="fu">diag</span>(N)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">array</span>(frf.psi,<span class="fu">c</span>(N,N,grid))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>spec.hat <span class="ot">&lt;-</span> <span class="fu">mdfa.pergram</span>(x.sim,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we compute and apply the MDFA filter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>lp.mdfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi,spec.hat,q)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x.trend.mdfa <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim,lp.mdfa[[<span class="dv">1</span>]])[(len<span class="sc">-</span>q<span class="sc">+</span><span class="dv">2</span>)<span class="sc">:</span>(T.sim<span class="sc">-</span>q<span class="sc">+</span><span class="dv">1</span><span class="sc">-</span>len),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The ideal trend can now be compared to the MDFA trend.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">oma=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>)<span class="sc">+</span><span class="fl">0.1</span>,<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),<span class="at">cex.lab=</span>.<span class="dv">8</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(x.trend.ideal[,<span class="dv">1</span>]),<span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.trend.mdfa[,<span class="dv">1</span>],<span class="at">col=</span><span class="fu">grey</span>(.<span class="dv">7</span>))</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(x.trend.ideal[,<span class="dv">2</span>]),<span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.trend.mdfa[,<span class="dv">2</span>],<span class="at">col=</span><span class="fu">grey</span>(.<span class="dv">7</span>))</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(x.trend.ideal[,<span class="dv">3</span>]),<span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.trend.mdfa[,<span class="dv">3</span>],<span class="at">col=</span><span class="fu">grey</span>(.<span class="dv">7</span>))</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Time"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">1</span>,<span class="at">outer=</span><span class="cn">TRUE</span>)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-trivar1-trends" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="basic_files/figure-html/fig-trivar1-trends-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3.2: Ideal trends (black) for the trivariate VAR(1) with real-time MDFA trends (grey) overlaid, for series one (upper panel), series two (center panel), and series three (bottom panel).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The in-sample MSE for the three components is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">mean</span>((x.trend.ideal[,<span class="dv">1</span>] <span class="sc">-</span> x.trend.mdfa[,<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>((x.trend.ideal[,<span class="dv">2</span>] <span class="sc">-</span> x.trend.mdfa[,<span class="dv">2</span>])<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>((x.trend.ideal[,<span class="dv">3</span>] <span class="sc">-</span> x.trend.mdfa[,<span class="dv">3</span>])<span class="sc">^</span><span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.29369624 0.08167176 0.02267740</code></pre>
+</div>
+</div>
+<p>which is close to the criterion value 0.3017226, 0.0836758, 0.0231747. The gain and phase delay functions are computed next; we use <code>mdfa.frf</code>, which compute the frf of a given multivariate filter at a specified mesh size of Fourier frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> frf.psi[<span class="dv">1</span>,<span class="dv">1</span>,]</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>gain.psi <span class="ot">&lt;-</span> <span class="fu">abs</span>(frf.psi)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>phased.psi <span class="ot">&lt;-</span> <span class="fu">Arg</span>(frf.psi)<span class="sc">/</span>freq.ft</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>lp.frf <span class="ot">&lt;-</span> <span class="fu">mdfa.frf</span>(lp.mdfa[[<span class="dv">1</span>]],<span class="dv">0</span>,T)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>lp.gain1 <span class="ot">&lt;-</span> <span class="fu">abs</span>(lp.frf[<span class="dv">1</span>,<span class="dv">1</span>,])</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>lp.gain2 <span class="ot">&lt;-</span> <span class="fu">abs</span>(lp.frf[<span class="dv">2</span>,<span class="dv">2</span>,])</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>lp.gain3 <span class="ot">&lt;-</span> <span class="fu">abs</span>(lp.frf[<span class="dv">3</span>,<span class="dv">3</span>,])</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>lp.phased1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">Arg</span>(lp.frf[<span class="dv">1</span>,<span class="dv">1</span>,])<span class="sc">/</span>freq.ft</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>lp.phased2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">Arg</span>(lp.frf[<span class="dv">2</span>,<span class="dv">2</span>,])<span class="sc">/</span>freq.ft</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>lp.phased3 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">Arg</span>(lp.frf[<span class="dv">3</span>,<span class="dv">3</span>,])<span class="sc">/</span>freq.ft</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These are displayed below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">oma=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>)<span class="sc">+</span><span class="fl">0.1</span>,<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),<span class="at">cex.lab=</span>.<span class="dv">8</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(gain.psi,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="dv">1</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">main=</span><span class="st">"Gain"</span>,</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(lp.gain1,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"orange"</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(lp.gain2,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(lp.gain3,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"violet"</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(phased.psi,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="dv">1</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(<span class="fu">na.exclude</span>(lp.phased1),<span class="fu">na.exclude</span>(lp.phased2),</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">na.exclude</span>(lp.phased3))),<span class="at">main=</span><span class="st">"Phase Delay"</span>,</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(lp.phased1,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"orange"</span>)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(lp.phased2,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(lp.phased3,<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"violet"</span>)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,T),<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="dv">1</span>,</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(<span class="fu">Re</span>(spec.hat[<span class="dv">1</span>,<span class="dv">1</span>,]),<span class="fu">Re</span>(spec.hat[<span class="dv">2</span>,<span class="dv">2</span>,]),<span class="fu">Re</span>(spec.hat[<span class="dv">3</span>,<span class="dv">3</span>,]))<span class="sc">/</span><span class="dv">6</span>),</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">main=</span><span class="st">"Periodogram"</span>,<span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">""</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(<span class="fu">Re</span>(spec.hat[<span class="dv">1</span>,<span class="dv">1</span>,]),<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"orange"</span>)</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(<span class="fu">Re</span>(spec.hat[<span class="dv">2</span>,<span class="dv">2</span>,]),<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">ts</span>(<span class="fu">Re</span>(spec.hat[<span class="dv">3</span>,<span class="dv">3</span>,]),<span class="at">start=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">frequency=</span>m),<span class="at">col=</span><span class="st">"violet"</span>)</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Cycles"</span>,<span class="at">side =</span> <span class="dv">1</span>,<span class="at">line =</span> <span class="dv">1</span>,<span class="at">outer=</span><span class="cn">TRUE</span>)</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-trivar1-freqdomain" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="basic_files/figure-html/fig-trivar1-freqdomain-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3.3: Gain functions (upper panel), Phase Delay Functions (center panel), and Periodograms (bottom panel) for series one (orange), two (green), and three (violet).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p>A visual inspection of <a href="#fig-trivar1-trends">Figure&nbsp;<span>3.2</span></a>, regarding the trends and trend estimates in <a href="#exr-var1mdfa2-filter">Exercise&nbsp;<span>3.4</span></a>, indicates an apparent conflict with the criterion values: although the first series has the largest MSE, the fit of the concurrent estimator to the target trend appears best. This is because the task of the filter for the first series is easiest, because a higher degree of smoothness must be captured – whereas, in contrast, a noisy target is harder to replicate in a mean square error sense. Another feature is that the real-time estimates appear to be systematically shifted to the right (they are delayed); the first series seems to be least affected. These observations indicate that the difficulty of the estimation task depends on the DGP (as specified by the entries of <span class="math inline">\(\Phi\)</span>): larger eigenvalues correspond to greater persistence of the process, and an easier estimation problem. In contrast, small eigenvalues correspond to a noisier process, and a harder estimation problem.</p>
+<p>These properties are further confirmed by the gain and phase delay functions displayed in <a href="#fig-trivar1-freqdomain">Figure&nbsp;<span>3.3</span></a>. The noise in real-time estimates <span class="math inline">\(\widehat{Y}_t\)</span> is due to the incomplete matching of the estimated gain (orange, green, or violet lines in the upper panel) to the ideal gain function (black); note that the concurrent filters allow some content at frequencies greater than <span class="math inline">\(\mu = \pi/6\)</span> to penetrate. On the other hand, the observed delay in the real-time estimates can be explained through the fact that the phase delay functions of the concurrent filters (orange, green, or violet lines in the center panel) do not vanish, unlike the ideal filter’s phase delay (black). <span class="quarto-unresolved-ref">?sec-ats</span> proposes a more general optimization paradigm that will address these issues explicitly.</p>
+<p>Also observe that the phase delay function of the first series (orange line, center panel), which has the strongest autocorrelation, remains comparatively small. Its gain function (orange line, upper panel) is the farthest away from the target in the stop-band <span class="math inline">\(|\omega| &gt;\pi/6\)</span>, but most closely resembles the target in the pass-band <span class="math inline">\(|\omega| \leq\pi/6\)</span>. Apparently, the optimization criterion concedes poorer high-frequency damping to obtain improved pass-band properties. In summary, <span class="math inline">\(\widehat{\Psi}\)</span> tracks <span class="math inline">\(\Psi\)</span> towards the pivotal frequencies, i.e., those that are important to the process’ dynamics, as quantified by the periodogram (bottom panel) in <a href="#fig-trivar1-freqdomain">Figure&nbsp;<span>3.3</span></a>. Similar findings apply to the other two series.</p>
+</section>
+<section id="sec-leading-ind" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-leading-ind"><span class="header-section-number">3.4</span> Qualitative Easing by Leading Indicators: an Empirical Study</h2>
+<p>In this section we quantify performance gains obtained by inclusion of a leading indicator into a univariate design. In particular, consider the process <span id="eq-def-led-i"><span class="math display">\[
+\begin{align}
+X_{t,1} &amp; = \phi \, X_{t-1,1} + \epsilon_{t,1} \notag \\
+X_{t,2} &amp; = X_{t+\delta,1} + \sigma \, \epsilon_{t,2},
+\end{align}
+\tag{3.15}\]</span></span> where <span class="math inline">\(\{ \epsilon_t \}\)</span> is i.i.d. with mean zero and identity covariance matrix. Clearly, <span class="math inline">\(\{ X_{t,2} \}\)</span> is a leading indicator of <span class="math inline">\(\{ X_{t,1} \}\)</span> when the time-shift <span class="math inline">\(\delta &gt; 0\)</span>. The scaling factor <span class="math inline">\(\sigma\)</span> determines the extent to which the indicator is effective, with larger values of <span class="math inline">\(\sigma\)</span> implying that the indicator is less informative about the target <span class="math inline">\(X_{t,1}\)</span>.</p>
+<section id="sec-bimdfaudfa" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="sec-bimdfaudfa"><span class="header-section-number">3.4.1</span> Bivariate MDFA versus Univariate DFA</h3>
+<p>Here we select <span class="math inline">\(\sigma=1\)</span>, corresponding to a weak idiosyncratic component, and set <span class="math inline">\(\delta=1\)</span> so that the indicator leads by one time unit.</p>
+<div id="exr-bimdfa-udfa" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.5 (Strong Leading Indicator.) </strong></span>Simulate a sample of size <span class="math inline">\(T=200\)</span> from the process <a href="#eq-def-led-i">Equation&nbsp;<span>3.15</span></a> with <span class="math inline">\(\phi = .9\)</span>, <span class="math inline">\(\delta = 1\)</span>, and <span class="math inline">\(\sigma = 1\)</span>. The target is one-step ahead forecasting of <span class="math inline">\(\{ X_{t,1} \}\)</span>, i.e., <span class="math inline">\(Y_t = X_{t+1,1}\)</span>. Apply univariate DFA by specializing the MDFA methodology, and compare to results obtained from MDFA (<a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>), in each case setting <span class="math inline">\(q=20\)</span>. Apply both concurrent filters to the simulation, and compare the relevant portions to the actual target. Also determine the in-sample performance, in comparison to the criterion value <a href="#eq-opt-val-mdfa">Equation&nbsp;<span>3.12</span></a>, for both the DFA and MDFA methods. Compare the results graphically.</p>
+<section id="solution-4" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="solution-4">Solution</h5>
+<p>We begin with a simulation of length <span class="math inline">\(200\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">654</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>T.sim <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>phi.matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(.<span class="dv">9</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>innovar.matrix <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">1</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>y.sim <span class="ot">&lt;-</span> <span class="fu">varp.sim</span>(<span class="fu">array</span>(phi.matrix,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)),innovar.matrix,T.sim<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>z.sim <span class="ot">&lt;-</span> y.sim[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">+</span> sigma<span class="sc">*</span><span class="fu">rnorm</span>(T.sim)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>x.sim <span class="ot">&lt;-</span> <span class="fu">cbind</span>(y.sim[<span class="sc">-</span>(T<span class="sc">+</span><span class="dv">1</span>)],z.sim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we set up MDFA, first selecting the filter length <span class="math inline">\(q=20\)</span> and computing the Fourier frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> T.sim</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(grid<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>lambda.ft <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>1i<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>grid<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}<span class="sc">*</span>(<span class="fu">seq</span>(<span class="dv">1</span>,grid) <span class="sc">-</span> (m<span class="sc">+</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we compute the frf for 1-step ahead forecasting, and calculate the periodogram.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">matrix</span>(lambda.ft<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>},<span class="at">nrow=</span><span class="dv">1</span>) <span class="sc">%x%</span> <span class="fu">diag</span>(N)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>frf.psi <span class="ot">&lt;-</span> <span class="fu">array</span>(frf.psi,<span class="fu">c</span>(N,N,grid))</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>spec.hat <span class="ot">&lt;-</span> <span class="fu">mdfa.pergram</span>(x.sim,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The MDFA and DFA filters are computed next, and applied to the simulation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>fore.mdfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi,spec.hat,q)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>fore.udfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>],spec.hat[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>],q)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>x.fore.mdfa <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim,fore.mdfa[[<span class="dv">1</span>]])</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>x.fore.udfa <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim[,<span class="dv">1</span>,<span class="at">drop=</span><span class="cn">FALSE</span>],fore.udfa[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The MDFA and DFA forecasts of the first series are displayed against the target, which is the simulation advanced one step forward:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>)<span class="sc">+</span><span class="fl">0.1</span>,<span class="at">cex.lab=</span>.<span class="dv">8</span>,<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ts</span>(x.sim[(q<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>T.sim,<span class="dv">1</span>]),<span class="at">ylab=</span><span class="st">""</span>,<span class="at">xlab=</span><span class="st">"Time"</span>,<span class="at">yaxt=</span><span class="st">"n"</span>,<span class="at">xaxt=</span><span class="st">"n"</span>,<span class="at">col=</span><span class="fu">grey</span>(.<span class="dv">7</span>))</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>,<span class="at">cex.axis=</span>.<span class="dv">5</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.fore.mdfa[<span class="sc">-</span>(T.sim<span class="sc">-</span>q<span class="sc">+</span><span class="dv">1</span>),<span class="dv">1</span>],<span class="at">col=</span><span class="fu">grey</span>(.<span class="dv">5</span>),<span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x.fore.udfa[<span class="sc">-</span>(T.sim<span class="sc">-</span>q<span class="sc">+</span><span class="dv">1</span>),<span class="dv">1</span>],<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">dev.off</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-easing1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="basic_files/figure-html/fig-easing1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3.4: One-step ahead forecasts based upon MDFA (black solid) and univariate DFA (dashed dark grey), with target in solid light grey.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The in-sample MSE for MDFA and DFA, focusing on the first component, is</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">mean</span>((x.sim[(q<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>T.sim,<span class="dv">1</span>] <span class="sc">-</span> x.fore.mdfa[<span class="sc">-</span>(T.sim<span class="sc">-</span>q<span class="sc">+</span><span class="dv">1</span>),<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>((x.sim[(q<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>T.sim,<span class="dv">1</span>] <span class="sc">-</span> x.fore.udfa[<span class="sc">-</span>(T.sim<span class="sc">-</span>q<span class="sc">+</span><span class="dv">1</span>)])<span class="sc">^</span><span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8386949 0.9194815</code></pre>
+</div>
+</div>
+<p>which is close to the criterion value .</p>
+</section>
+</div>
+<p>We see that there is a substantial improvement to performance of the MDFA over the univariate DFA; this can be visualized by the tracking of the target shown in <a href="#fig-easing1">Figure&nbsp;<span>3.4</span></a>. This is possible because the MDFA filter assigns more weight to the second series (the leading indicator), which is not available to the univariate DFA.</p>
+</section>
+<section id="sec-lead-snr" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="sec-lead-snr"><span class="header-section-number">3.4.2</span> Measuring Lead and Signal-to-Noise Effects of a Leading Indicator</h3>
+<p>Intuitively, increasing <span class="math inline">\(\delta\)</span> or <span class="math inline">\(\sigma\)</span> should result in a harder forecasting problem: <span class="math inline">\(1/ \sigma\)</span> measures signal-to-noise ratio (snr), and low values indicate that real-time signal extraction becomes more difficult. On the other hand, a high lead time <span class="math inline">\(\delta\)</span> requires one to do long-term forecasting, which is known to be difficult. Through the fabricated process (<a href="#eq-def-led-i">Equation&nbsp;<span>3.15</span></a>) we can disentangle the conflict between increasing <span class="math inline">\(\delta\)</span> and decreasing <span class="math inline">\(\sigma\)</span>. By allowing for non-integer shifts <span class="math inline">\(\delta_j=j/4\)</span>, <span class="math inline">\(j=0,1,2,3,4\)</span> we can quantify real-time forecasting performance. Note that if the time units are annual, then the <span class="math inline">\(\delta_j\)</span> correspond to quarterly forecasts; more generally, taking <span class="math inline">\(\delta &lt; 1\)</span> corresponds to now-casting of a time series, and has many practical applications. The target filter has frf of the form <span class="math display">\[
+\Psi (e^{-i \omega}) = \exp \{ i \, \omega \delta \},
+\]</span> which can be immediately implemented in the frequency domain (whereas in time domain, the filter is difficult to express when <span class="math inline">\(\delta\)</span> is non-integer).</p>
+<div id="exr-nowmdfa-udfa" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3.6 (Now-casting with a Leading Indicator.) </strong></span>Simulate a sample of size <span class="math inline">\(T=2500\)</span> from the process <a href="#eq-def-led-i">Equation&nbsp;<span>3.15</span></a> with <span class="math inline">\(\phi = .9\)</span>, <span class="math inline">\(\delta_j=j/4\)</span>, <span class="math inline">\(j=0,1,2,3,4\)</span> and <span class="math inline">\(\sigma = 0,0.1,0.5,1,2\)</span>. The target is <span class="math inline">\(\delta\)</span>-step ahead nowcasting of <span class="math inline">\(\{ X_{t,1} \}\)</span>, i.e., <span class="math inline">\(Y_t = X_{t+\delta,1}\)</span>. Filter to obtain the now-cast target, so as to retain a target series of length <span class="math inline">\(500\)</span>. Combine with the leading indicator, and apply univariate DFA and MDFA methodology (<a href="#prp-mdfa-quadsoln">Proposition&nbsp;<span>3.2</span></a>), in each case setting <span class="math inline">\(q=20\)</span>. Apply both concurrent filters to the simulation, and compare the relevant portions to the actual target. Record the criterion values (<a href="#eq-opt-val-mdfa">Equation&nbsp;<span>3.12</span></a>) for both the DFA and MDFA methods.</p>
+<section id="solution-5" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="solution-5">Solution</h5>
+<p>The basic solution of <a href="#exr-bimdfa-udfa">Exercise&nbsp;<span>3.5</span></a> is applied, where we loop over various choices of <span class="math inline">\(\delta\)</span> and <span class="math inline">\(\sigma\)</span>. We begin with some global settings:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">654</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>T.sim <span class="ot">&lt;-</span> <span class="dv">2500</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>len <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>phi.matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(.<span class="dv">9</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>innovar.matrix <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, obtain the Fourier frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>grid.big <span class="ot">&lt;-</span> T.sim</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(grid.big<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>lambda.ft.big <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>1i<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>grid.big<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}<span class="sc">*</span>(<span class="fu">seq</span>(<span class="dv">1</span>,grid.big) <span class="sc">-</span> (m<span class="sc">+</span><span class="dv">1</span>)))</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>grid.small <span class="ot">&lt;-</span> T.sim <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>len</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(grid.small<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>lambda.ft.small <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>1i<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>grid.small<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}<span class="sc">*</span>(<span class="fu">seq</span>(<span class="dv">1</span>,grid.small) <span class="sc">-</span> (m<span class="sc">+</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we define some matrices and the MDFA filter length.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>delta.vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)<span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>sigma.vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">1</span>,.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>critmdfa.mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)<span class="sc">/</span><span class="dv">4</span>,sigma.vals))</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>critudfa.mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)<span class="sc">/</span><span class="dv">4</span>,sigma.vals))</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, loop and do the main calculations. The function <code>mdfa.coeff</code> computes filter coefficients from a given frf.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>y.sim <span class="ot">&lt;-</span> <span class="fu">varp.sim</span>(<span class="fu">array</span>(phi.matrix,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)),innovar.matrix,T.sim)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(delta <span class="cf">in</span> delta.vals) </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  frf.psi.big <span class="ot">&lt;-</span> <span class="fu">matrix</span>(lambda.ft.big<span class="sc">^</span>{<span class="sc">-</span>delta},<span class="at">nrow=</span><span class="dv">1</span>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  frf.psi.big <span class="ot">&lt;-</span> <span class="fu">array</span>(frf.psi.big,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,grid.big))</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  nowcast.filter <span class="ot">&lt;-</span> <span class="fu">mdfa.coeff</span>(frf.psi.big,<span class="sc">-</span>len,len)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  y.target <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(y.sim,nowcast.filter[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>])</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) </span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>    sigma <span class="ot">&lt;-</span> sigma.vals[j]</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>    z.sim <span class="ot">&lt;-</span> y.target <span class="sc">+</span> sigma<span class="sc">*</span><span class="fu">rnorm</span>(T.sim<span class="dv">-2</span><span class="sc">*</span>len)</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>    x.sim <span class="ot">&lt;-</span> <span class="fu">cbind</span>(y.sim[(len<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(T.sim<span class="sc">-</span>len)],z.sim)</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>    frf.psi.small <span class="ot">&lt;-</span> <span class="fu">matrix</span>(lambda.ft.small<span class="sc">^</span>{<span class="sc">-</span>delta},<span class="at">nrow=</span><span class="dv">1</span>) <span class="sc">%x%</span> <span class="fu">diag</span>(N)</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>    frf.psi.small <span class="ot">&lt;-</span> <span class="fu">array</span>(frf.psi.small,<span class="fu">c</span>(N,N,grid.small))</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>    spec.hat <span class="ot">&lt;-</span> <span class="fu">mdfa.pergram</span>(x.sim,<span class="dv">1</span>)</span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>    fore.udfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi.small[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>],</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>                                    spec.hat[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="at">drop=</span><span class="cn">FALSE</span>],q)</span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>    x.fore.udfa <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim[,<span class="dv">1</span>,<span class="at">drop=</span><span class="cn">FALSE</span>],fore.udfa[[<span class="dv">1</span>]])</span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(j <span class="sc">&gt;</span> <span class="dv">1</span>) { </span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>        fore.mdfa <span class="ot">&lt;-</span> <span class="fu">mdfa.unconstrained</span>(frf.psi.small,spec.hat,q) </span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>      x.fore.mdfa <span class="ot">&lt;-</span> <span class="fu">mvar.filter</span>(x.sim,fore.mdfa[[<span class="dv">1</span>]])</span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> </span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>    { </span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>      fore.mdfa <span class="ot">&lt;-</span> fore.udfa</span>
+<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>      x.fore.mdfa <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x.fore.udfa,<span class="fu">rep</span>(<span class="dv">0</span>,(T.sim<span class="dv">-2</span><span class="sc">*</span>len<span class="sc">-</span>q<span class="sc">+</span><span class="dv">1</span>)))</span>
+<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a>    i <span class="ot">&lt;-</span> delta<span class="sc">*</span><span class="dv">4</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a>    critmdfa.mat[i,j] <span class="ot">&lt;-</span> <span class="fu">round</span>(fore.mdfa[[<span class="dv">2</span>]][<span class="dv">1</span>,<span class="dv">1</span>],<span class="at">digits=</span><span class="dv">5</span>)</span>
+<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a>    critudfa.mat[i,j] <span class="ot">&lt;-</span> <span class="fu">round</span>(fore.udfa[[<span class="dv">2</span>]][<span class="dv">1</span>,<span class="dv">1</span>],<span class="at">digits=</span><span class="dv">5</span>)</span>
+<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we display two tables that summarize the results.</p>
+<div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">as.table</span>(critmdfa.mat)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(tab) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">delta =</span> delta.vals, </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sigma  =</span> sigma.vals) </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-critmdfa-mat" class="cell tbl-parent quarto-layout-panel anchored" data-tbl-cap="Effect of lead and  inverse signal-to-noise ratio on MDFA filter MSE.">
+<div class="panel-caption table-caption">
+<p><strong>?(caption)</strong></p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<pre><code>      sigma
+delta        0     0.1     0.5       1       2
+  0    0.00000 0.00000 0.00000 0.00000 0.00000
+  0.25 0.06617 0.01175 0.05229 0.05579 0.06311
+  0.5  0.29806 0.02053 0.13006 0.19737 0.27083
+  0.75 0.64488 0.02176 0.16080 0.37165 0.53507
+  1    0.98893 0.01723 0.19467 0.48642 0.76505</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">as.table</span>(critudfa.mat)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(tab) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">delta =</span> delta.vals, </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sigma  =</span> sigma.vals) </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tab )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-critudfa-mat" class="cell tbl-parent quarto-layout-panel anchored" data-tbl-cap="Effect of lead and  inverse signal-to-noise ratio on DFA filter MSE.">
+<div class="panel-caption table-caption">
+<p><strong>?(caption)</strong></p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<pre><code>      sigma
+delta        0     0.1     0.5       1       2
+  0    0.00000 0.00000 0.00000 0.00000 0.00000
+  0.25 0.06617 0.06617 0.06617 0.06617 0.06617
+  0.5  0.29806 0.29806 0.29806 0.29806 0.29806
+  0.75 0.64488 0.64488 0.64488 0.64488 0.64488
+  1    0.98893 0.98893 0.98893 0.98893 0.98893</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<p>The results for MDFA and univariate DFA, respectively, are given in <span class="quarto-unresolved-ref">?tbl-critmdfa-mat</span> and <span class="quarto-unresolved-ref">?tbl-critudfa-mat</span>. Regarding the design of <a href="#exr-nowmdfa-udfa">Exercise&nbsp;<span>3.6</span></a>, we make the following comments. When <span class="math inline">\(\sigma = 0\)</span> the leading indicator exactly matches the target; if <span class="math inline">\(\delta = 0\)</span> as well, then <span class="math inline">\(X_{t,1} = X_{t,2}\)</span> and there is redundancy in the data – this will lead to a singularity in the periodogram. When <span class="math inline">\(\delta &gt; 0\)</span> (but <span class="math inline">\(\sigma = 0\)</span>) then <span class="math inline">\(\{ X_{t,1} \}\)</span> and <span class="math inline">\(\{ X_{t,2} \}\)</span> are perfectly coherent, as the relation <span class="math inline">\(X_{t,2} = B^{-\delta} \, X_{t,1}\)</span> holds. This full coherency indicates a type of redundancy is still present, and the MDFA method is singular. Therefore, in these cases we restrict the MDFA to univariate DFA. Therefore, the first columns of <span class="quarto-unresolved-ref">?tbl-critmdfa-mat</span> and <span class="quarto-unresolved-ref">?tbl-critudfa-mat</span> are identical.</p>
+<p>The first rows of <span class="quarto-unresolved-ref">?tbl-critmdfa-mat</span> and <span class="quarto-unresolved-ref">?tbl-critudfa-mat</span> are trivially zero, because when <span class="math inline">\(\delta = 0\)</span> the target is observable, and hence both MDFA and DFA select the identity filter. Broadly, the patterns are what we would expect: increasing <span class="math inline">\(\delta\)</span> and/or <span class="math inline">\(\sigma\)</span> generates worse performance (higher MSE), although the MDFA is superior to DFA. The performance of MDFA relative to DFA worsens as <span class="math inline">\(\sigma\)</span> increases, irrespective of <span class="math inline">\(\delta\)</span>, which makes sense: there is less benefit to the leading indicator when the snr is low, in which case DFA should generate a competitive real-time filter. In particular, reading across the rows of <span class="quarto-unresolved-ref">?tbl-critudfa-mat</span> we see the MSE is fairly constant – DFA does not utilize the leading indicator, so the variability here is due to the simulation seeds. As for the MDFA, decreased performance due to lower snr could be compensated by decreasing the lead-time <span class="math inline">\(\delta\)</span>. Again, when <span class="math inline">\(\sigma\)</span> is low (second column of <span class="quarto-unresolved-ref">?tbl-critmdfa-mat</span>) the leading indicator is very useful, and the MSE does not depend greatly on <span class="math inline">\(\delta\)</span>. This pattern is opposite when <span class="math inline">\(\sigma\)</span> is high (fifth column), as increased <span class="math inline">\(\delta\)</span> negatively affects performance.</p>
+<p>These results suggest the pertinence of a mixed-frequency approach, whereby information at differing sampling frequencies (such as monthly and quarterly data) is combined. The higher-frequency data stream could be used to update the filter for the lower-frequency time series; this is further discussed in <span class="quarto-unresolved-ref">?sec-mix</span>.</p>
+</section>
+</section>
+<section id="multivariate-dfa-with-multiple-targets" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="multivariate-dfa-with-multiple-targets"><span class="header-section-number">3.5</span> Multivariate DFA with Multiple Targets</h2>
+<p>We now consider a slight generalization of the LPP, where the target is also multivariate.</p>
+<section id="lpp-with-multiple-targets" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="lpp-with-multiple-targets"><span class="header-section-number">3.5.1</span> LPP with Multiple Targets</h3>
+<div id="def-target2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.2 </strong></span>A <strong>target</strong> is defined to be the output of any known linear filter acting on the data process, i.e., <span class="math inline">\(\{Y_t \}\)</span> is a target time series corresponding to a given filter <span class="math inline">\(\Psi (L)\)</span> acting on a given observed time series <span class="math inline">\(\{ X_t \}\)</span> if and only if we can write <span class="math inline">\(Y_t = \Psi (L) \, X_t\)</span> for all integers <span class="math inline">\(t\)</span>.</p>
+</div>
+<p>We revisit the examples considered in <span class="quarto-unresolved-ref">?sec-lpp</span>, but now incorporated with multiple targets.</p>
+<div id="exm-multi-step-fore2" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.4 (Multi-step Ahead Forecasting.) </strong></span>Suppose that our goal is to forecast all of the component series <span class="math inline">\(h\)</span> steps ahead, where <span class="math inline">\(h \geq 1\)</span> is the given <em>forecast lead</em>. Hence the target is expressed as <span class="math inline">\(Y_t = X_{t+h}\)</span> for all <span class="math inline">\(t \in \mathbb Z\)</span>. This target corresponds to <span class="math inline">\(\Psi (L) = L^{-h} \, 1_n\)</span>. Thus, <span class="math inline">\(\psi (\ell)\)</span> is a <span class="math inline">\(n \times n\)</span> matrix, each of which are zero except <span class="math inline">\(\psi (-h)\)</span>, which is given by <span class="math inline">\(1_n\)</span>.</p>
+</div>
+<div id="exm-ideal-low2" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.5 (Ideal Low-Pass.) </strong></span>The ideal low-pass target is the same for each series, and hence <span class="math display">\[
+  \Psi (z) = \chi_{ [ -\mu, \mu ]} (\omega) \,1_n
+\]</span> for some cutoff <span class="math inline">\(\mu \in (0, \pi)\)</span> that separates the pass-band from the stop-band. The coefficients are given by <span class="math display">\[
+  \psi (\ell) = \frac{ \sin (\ell \mu) }{ \pi \ell } \, 1_n
+\]</span> for <span class="math inline">\(\ell \neq 0\)</span> and <span class="math inline">\(\psi (0) = \mu/\pi \, 1_n\)</span>.</p>
+</div>
+<div id="exm-var1-shock" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.6 (The Future VAR(1) Shock.) </strong></span>Consider the VAR(1) process <span class="quarto-unresolved-ref">?eq-var1-def</span>, and suppose our target is the future shock (or innovation), so that <span class="math display">\[
+  Y_t = X_{t+1} - \Phi \, X_{t}.
+\]</span> Hence <span class="math inline">\(\Psi (L) = L^{-1} 1_n - \Phi\)</span>. Note that this target is model-based; one must know the process to compute the target. Also, each component of the multivariate target depends on all the series: <span class="math display">\[
+  Y_{t,j} = X_{t+1,j} -  \sum_{k=1}^n \Phi_{jk} X_{t,k}
+\]</span> for <span class="math inline">\(1 \leq j \leq n\)</span>.</p>
+</div>
+<p>As we see from these examples, the targets of real-time signal extraction are features of the stochastic process that are of interest to a particular user. Targets can be <em>ad hoc</em> (cf. <a href="#exm-ideal-low2">Example&nbsp;<span>3.5</span></a>) or <em>model-based</em> (cf. <a href="#exm-var1-shock">Example&nbsp;<span>3.6</span></a>), and may depend upon all the components of <span class="math inline">\(X_t\)</span>.</p>
+<div id="def-lpp2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.3 </strong></span>The <strong>Linear Prediction Problem</strong> (LPP) seeks a linear estimate such that the filter error <span class="quarto-unresolved-ref">?eq-dfa-error</span> has mean zero, and such that the determinant of the filter error variance <span class="math inline">\(\mbox{Var} [ E_t ]\)</span> is minimized.</p>
+</div>
+<p>The filter error variance matrix is referred to as the filter MSE; the diagonal entries correspond to the scalar LPPs considered earlier in this book. We now state the solution to the general LPP with multiple targets.</p>
+<div id="prp-GPP2" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 3.4 </strong></span>Suppose that <span class="math inline">\(\{ X_t \}\)</span> is mean zero and weakly stationary with Wold decomposition expressed as <span class="math inline">\(X_t = \Theta (L) \, \epsilon_t\)</span>, where <span class="math inline">\(\Theta (L)\)</span> is invertible. Then the solution to the LPP posed by a target <span class="math inline">\(Y_t = \Psi (L) \, X_t\)</span> is given by <span id="eq-GPPsoln"><span class="math display">\[
+\widehat{\Psi} (L) = \sum_{\ell \geq 0 } \psi (\ell) \, L^{\ell} +
+\sum_{\ell &lt; 0 } \psi (\ell)
+\,  { [ \Theta (L) ]}_{-\ell}^{ \infty  } \, L^{\ell} \, {\Theta (L) }^{-1}
+= { [ \Psi (L) \Theta (L) ]}_0^{\infty} {\Theta (L) }^{-1}.
+\tag{3.16}\]</span></span> Moreover, the MSE corresponding to this solution is given by <span id="eq-minimalMSE"><span class="math display">\[
+{ \langle {[ \Psi (e^{-i \omega}) \Theta (e^{-i \omega}) ]}_{-\infty}^{-1}
+  \Sigma { {[ \Psi (e^{-i \omega}) \Theta (e^{-i \omega}) ]}_{-\infty}^{-1} }^*
+  \rangle }_0.
+\tag{3.17}\]</span></span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>We first prove the first formula of <a href="#eq-GPPsoln">Equation&nbsp;<span>3.16</span></a>. In order for a linear solution to be MSE optimal, it is sufficient that the resulting error process be uncorrelated with the present and past data, denoted <span class="math inline">\(X_{t:}\)</span>. If we can show that the real-time signal extraction error process <span class="math inline">\(\{ E_t \}\)</span> depends only on future innovations, then by the causality of <span class="math inline">\(\{ X_t \}\)</span> the error process must be uncorrelated with <span class="math inline">\(X_{t:}\)</span>, establishing optimality. The filter error of the putative solution is given by <span class="math display">\[
+\begin{align}
+\Psi (L) - \widehat{\Psi} (L) &amp; = \sum_{\ell &lt; 0 } \psi (\ell) \, L^{\ell} \,
+   \left( 1 -   {[ \Theta (L) ]}_{-\ell}^{\infty} \, { \Theta (L) }^{-1} \right) \\
+  &amp; =  \sum_{\ell &lt; 0 } \psi (\ell) \, L^{\ell} \,
+  {[ \Theta (L) ]}_{0}^{ -(\ell + 1)} \, { \Theta (L) }^{-1}.
+\end{align}
+\]</span> Applying this to <span class="math inline">\(\{ X_t \}\)</span> yields <span class="math display">\[
+  E_t = \sum_{\ell =1 }^{\infty} \psi (-\ell) \, {[ \Theta (L) ]}_0^{\ell - 1} \,
+   \epsilon_{t + \ell }.
+\]</span> Noting that <span class="math inline">\({[ \Theta (L) ]}_0^{\ell - 1}\)</span> is an order <span class="math inline">\(\ell-1\)</span> polynomial in <span class="math inline">\(L\)</span>, and is applied to <span class="math inline">\(\epsilon_{t+ \ell}\)</span>, it is apparent that <span class="math inline">\(E_t\)</span> is a linear function of future innovations <span class="math inline">\(\{ \epsilon_{t+1}, \epsilon_{t+2}, \ldots \}\)</span>. For the second formula, we use the fact that <span class="math inline">\(\Theta (z)\)</span> is a power series to obtain <span class="math display">\[
+\begin{align}
+\sum_{\ell &lt; 0 } \psi (\ell) \, z^{\ell} \,
+  {[ \Theta (z) ]}_{0}^{ -(\ell + 1)}  &amp; =
+  \sum_{\ell = -\infty }^{-1} \psi (\ell) \,  \sum_{k = -\infty}^{-\ell-1}
+   \theta (k) z^{k + \ell} \\
+&amp; =  \sum_{\ell = -\infty }^{-1} \psi (\ell) \,  \sum_{k \geq 0}
+   \theta (-\ell-1-k) z^{-1-k} \\   
+&amp; = \sum_{k \geq 0} z^{-1-k} \sum_{\ell = -\infty }^{\infty} \psi (\ell) \,  
+   \theta (-\ell-1-k)  \\   
+&amp; = \sum_{k \geq 0} z^{-1-k} { \langle \Psi (z) \Theta (z) \rangle }_{-1-k} \\
+   &amp; = { [ \Psi (z) \Theta (z) ]}_{- \infty}^{-1}.
+\end{align}
+\]</span> From this expression it follows that <span class="math display">\[
+\widehat{\Psi} (z) = \Psi (z) - { [ \Psi (z) \Theta (z) ]}_{- \infty}^{-1} { \Theta (z)}^{-1}
+= { [ \Psi (z) \Theta (z) ]}_{0}^{\infty} { \Theta (z)}^{-1}.
+\]</span> This calculation also yields the variance of <span class="math inline">\(E_t\)</span>, and the expression for the minimal MSE. <span class="math inline">\(\quad \Box\)</span></p>
+</div>
+</section>
+<section id="mdfa-for-multiple-targets" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="mdfa-for-multiple-targets"><span class="header-section-number">3.5.2</span> MDFA for Multiple Targets</h3>
+<p>Suppose that the causal filters of interest belong to a class <span class="math inline">\(\mathcal{G}\)</span> described by a vector parameter <span class="math inline">\(\vartheta\)</span> belonging to a parameter manifold. We now generalize the definition of <span class="math inline">\(\mathcal{G}\)</span> given by <a href="#eq-filter-set">Equation&nbsp;<span>3.5</span></a>, where now the filters are <span class="math inline">\(n \times n\)</span>. Likewise, we generalize the real-time estimation error given in <span class="quarto-unresolved-ref">?eq-dfa-error</span> by noting that now <span class="math inline">\(E_t\)</span> is an <span class="math inline">\(n\)</span>-dimensional vector. Hence <a href="#eq-dfa-mvar">Equation&nbsp;<span>3.6</span></a> becomes <span id="eq-dfa-mvar2"><span class="math display">\[
+   \mathbb E[ E_t \, E_t^{\prime} ]  =
+   { \langle  \left[ \Psi ( e^{-i \omega} ) -  
+   \widehat{\Psi}_{\vartheta} (e^{-i \omega}) \right] \,   F (\omega) \,
+  {  \left[ \Psi (e^{i \omega}) -  \widehat{\Psi}_{\vartheta} (e^{i \omega})
+  \right] }^{\prime} \rangle }_0.
+\tag{3.18}\]</span></span> This suggests as a generalization of <a href="#eq-mdfa-criterion">Equation&nbsp;<span>3.7</span></a> the criterion function <span class="math inline">\(\det D_{\Psi} (\vartheta, G)\)</span> for any Hermitian function <span class="math inline">\(G\)</span>, defined via <span id="eq-mdfa-criterion2"><span class="math display">\[
+D_{\Psi} (\vartheta, G) = { \langle  \left[ \Psi (e^{-i \omega}) -
+  \widehat{\Psi}_{\vartheta} (e^{-i \omega}) \right] \,   G (\omega) \,
+  {  \left[ \Psi (e^{i \omega}) -  \widehat{\Psi}_{\vartheta} (e^{i \omega}) \right] }^{\prime} \rangle }_0.
+\tag{3.19}\]</span></span> In the following development, setting <span class="math inline">\(G = F\)</span> yields an ideal criterion based on the process, whereas setting <span class="math inline">\(G = \widehat{F}\)</span> (the periodogram) yields an empirical criterion, providing estimates that we can compute from data. Taking the determinant of <a href="#eq-mdfa-criterion2">Equation&nbsp;<span>3.19</span></a> yields the MDFA criterion function. In the case <span class="math inline">\(n=1\)</span> we recover the univariate DFA; Proposition A.3 of <span class="citation" data-cites="mcelroy2020multivariate">T. S. McElroy and Wildi (<a href="#ref-mcelroy2020multivariate" role="doc-biblioref">2020</a>)</span> shows that by including additional time series the MDFA will improve over DFA for any filter class <span class="math inline">\(\mathcal{G}\)</span>.</p>
+<p>The best possible concurrent filter is given by <span class="math inline">\(\widehat{\Psi}_{\vartheta (F)}\)</span>, where <span class="math inline">\(\vartheta (F)\)</span> is a minimizer of <span class="math inline">\(\det D_{\Psi} (\vartheta, F)\)</span>. This <span class="math inline">\(\vartheta (F)\)</span> is the Pseudo-True Value for the filter parameter. A case of interest arises from taking a very broad class <span class="math inline">\(\mathcal{G}\)</span>, namely let <span class="math inline">\(\mathcal{G}\)</span> consist of all length <span class="math inline">\(q\)</span> concurrent filters, with <span class="math inline">\(\vartheta = \mbox{vec} [ P^{\prime}]\)</span> and <span id="eq-conc-filter-mult"><span class="math display">\[
+  P  =  {\left[  \widehat{\psi} (0), \widehat{\psi} (1), \ldots,
+  \widehat{\psi} (q-1) \right] }^{\prime}.
+\tag{3.20}\]</span></span> So <span class="math inline">\(P\)</span> is a <span class="math inline">\(q n \times n\)</span> dimensional matrix. Then the criterion <a href="#eq-mdfa-criterion2">Equation&nbsp;<span>3.19</span></a> can be rewritten as <span id="eq-mdfa-crit-linear"><span class="math display">\[
+D_{\Psi} (\vartheta, G)  = P^{\prime} \, B \, P -
+   P^{\prime} \, A -
+   A^{\prime} \, P + { \langle \Psi (e^{-i \omega}) \,
+   G (\omega) \, { \Psi (e^{i \omega}) }^{\prime} \rangle }_0,
+\tag{3.21}\]</span></span> where <span id="eq-bstar-expression2"><span class="math display">\[
+  A^{\prime}  = \left[ { \langle \Psi (e^{-i \omega}) \, G (\omega)
+  \rangle }_{0}, { \langle \Psi (e^{-i \omega}) \, G (\omega) \rangle }_{1},
+  \ldots, { \langle \Psi (e^{-i \omega}) \, G (\omega) \rangle }_{q-1} \right],
+\tag{3.22}\]</span></span> and <span class="math inline">\(B\)</span> is a block matrix such that the <span class="math inline">\(jk\)</span>th <span class="math inline">\(n \times n\)</span> block of <span class="math inline">\(B\)</span> is <span class="math inline">\({ \langle G \rangle }_{k-j}\)</span> for <span class="math inline">\(1 \leq j,k \leq q\)</span>. (Because <span class="math inline">\(G\)</span> is Hermitian, <span class="math inline">\({ \langle G \rangle }_{k-j}\)</span> is real, and it follows that <span class="math inline">\(A\)</span> is real as well.)</p>
+<div id="prp-mdfa-quadsoln2" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 3.5 </strong></span>The minimizer of the MDFA criterion given by the determinant of <a href="#eq-mdfa-criterion2">Equation&nbsp;<span>3.19</span></a>, with respect to <span class="math inline">\(\mathcal{G}\)</span> consisting of all length <span class="math inline">\(q\)</span> concurrent filters, is <span class="math inline">\(P (G) = B^{-1} \, A\)</span> (expressing <span class="math inline">\(P\)</span> as a function of <span class="math inline">\(G\)</span>), where the <span class="math inline">\(jk\)</span>th block of <span class="math inline">\(B\)</span> is <span class="math inline">\({ \langle G \rangle }_{k-j}\)</span>, and <span class="math inline">\(A\)</span> is given by <a href="#eq-bstar-expression2">Equation&nbsp;<span>3.22</span></a>. The minimal value is the determinant of <span id="eq-opt-val-mdfa2"><span class="math display">\[
+{ \langle \Psi (e^{-i \omega}) \, G (\omega) \, { \Psi (e^{i \omega}) }^{\prime} \rangle }_0 - A^{\prime} \, B^{-1} \, A.
+\tag{3.23}\]</span></span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>First note that the typical component of <span class="math inline">\(A\)</span> has the form <span id="eq-psi-g-comp2"><span class="math display">\[
+   { \langle \Psi (z) \, G \rangle }_{\ell} = \sum_{k = - \infty}^{\infty} \psi (k) \,
+     { \langle G \rangle }_{\ell-k}
+\tag{3.24}\]</span></span> for <span class="math inline">\(0 \leq \ell &lt; q\)</span>, which shows that <span class="math inline">\(A\)</span> is real-valued. The argument follows the same method as in <span class="citation" data-cites="mcelroy2014fitting">T. McElroy and Findley (<a href="#ref-mcelroy2014fitting" role="doc-biblioref">2014</a>)</span>; each entry of the matrix objective function is a quadratic in <span class="math inline">\(P\)</span>, and therefore the minimizer is obtained by computing the gradient and Hessian, which are <span class="math inline">\(-2 A + 2 B \, P\)</span> and <span class="math inline">\(2 B\)</span> respectively, yielding the solution. Plugging back into <span class="math inline">\(D_{\Psi}\)</span> yields <a href="#eq-opt-val-mdfa2">Equation&nbsp;<span>3.23</span></a>. <span class="math inline">\(\quad \Box\)</span></p>
+</div>
+<div id="exm-multi-step-fore-4-alt" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.7 (One-step Ahead Forecasting.) </strong></span>We now generalize the result of <a href="#exm-multi-step-fore-4">Example&nbsp;<span>3.2</span></a> by considering multiple series at once. Consider the one-step ahead forecasting of stationary time series, where <span class="math inline">\(\mathcal{G}\)</span> corresponds to all VMA filters of order <span class="math inline">\(q\)</span> (i.e., the filter corresponds to a VMA(<span class="math inline">\(q-1\)</span>) polynomial), where <span class="math inline">\(\vartheta = \mbox{vec} [{\widehat{\psi} (0) }^{\prime}, {\widehat{\psi} (1) }^{\prime}, \ldots, {\widehat{\psi} (q-1) }^{\prime} ]\)</span>. With <span class="math inline">\(\Psi (z) = z^{-1} 1_n\)</span>, from <a href="#eq-mdfa-criterion2">Equation&nbsp;<span>3.19</span></a> we have <span class="math display">\[
+\begin{align}
+D_{\Psi} (\vartheta, G) &amp; =
+{ \langle  \left[  e^{i \omega} 1_n -  \widehat{\Psi}_{\vartheta} (e^{-i \omega}) \right] \,   G (\omega) \,
+  {  \left[ e^{-i \omega}  1_n  -  \widehat{\Psi}_{\vartheta} (e^{i \omega}) \right] }^{\prime} \rangle }_0 \\
+&amp; = { \langle  \left[ 1_n -  \sum_{\ell = 0}^{q-1} \widehat{\psi} (\ell)
+    \, e^{-i \omega  (\ell+1) } \right] \,
+  G \,   {  \left[ 1_n  -   \sum_{\ell = 0}^{q-1} \widehat{\psi} (\ell)
+  \, e^{i \omega (\ell+1 ) } \right]
+  }^{\prime} \rangle }_0 \\
+&amp; = { \langle G \rangle }_0 - 2 \, P^{\prime} \, { \langle G \rangle }_{1:q}
+    + P^{\prime} \, B \, P.
+\end{align}
+\]</span> Hence the optimizer is <span class="math inline">\(P (G) = B^{-1} \, { \langle G \rangle }_{1:q}\)</span>, which is the first component of the solution to the Yule-Walker system of order <span class="math inline">\(q\)</span> determined by <span class="math inline">\(G\)</span>. Therefore the MDFA solution is the same as the fit of a VAR(<span class="math inline">\(q\)</span>) using <a href="#prp-GPP2">Proposition&nbsp;<span>3.4</span></a>.</p>
+</div>
+<p>We designate the resulting prediction function <span class="math inline">\(\widehat{\Psi}_{ {\vartheta} (G)}\)</span> as a <em>Linear Prediction Filter</em> (LPF). Again, when <span class="math inline">\(G=F\)</span> this LPF is a theoretical object, but when <span class="math inline">\(G = \widehat{F}\)</span> the LPF can be constructed directly from the sample. When <span class="math inline">\(\mathcal{G}\)</span> is large enough to include the optimal MB filter <span class="math inline">\(\widehat{\Psi}\)</span> of <a href="#prp-GPP2">Proposition&nbsp;<span>3.4</span></a>, then <span class="math inline">\(\widehat{\Psi}_{ {\vartheta} (F)}\)</span> corresponds to this <span class="math inline">\(\widehat{\Psi}\)</span> (assuming the model is correctly specified).</p>
+<div id="exm-var1-3-alt" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.8 (VAR(<span class="math inline">\(1\)</span>).) </strong></span>We revisit the VAR(1) <a href="#exm-var1-3">Example&nbsp;<span>3.3</span></a>. Now the solution given by <a href="#prp-mdfa-quadsoln2">Proposition&nbsp;<span>3.5</span></a> can be compared to that of the LPP, which has the first <span class="math inline">\(q\)</span> components given by <span class="math inline">\(\Upsilon^{\prime} = [ \psi (0) + A_{\Psi} (\Phi), \psi (1), \ldots, \psi (q-1) ]\)</span>. This is an approximate solution to the system <span class="math inline">\(P^{\prime} \, B = A^{\prime}\)</span>, because <span class="math inline">\(\Upsilon^{\prime} \, B\)</span> has <span class="math inline">\(j+1\)</span>th component, for <span class="math inline">\(0 \leq j \leq q-1\)</span>, equal to <span class="math inline">\(\sum_{\ell=0}^{q-1} \psi (\ell) \, {\langle G \rangle }_{j-\ell} + A_{\Psi} (\Phi) \, \Gamma_j\)</span>. Noting that <span class="math display">\[
+A_{\Psi} (\Phi) \, \Gamma_j
+= \sum_{\ell = -1 }^{-\infty} \psi (-\ell) \, \Phi^{-\ell} \, \Gamma_j
+= \sum_{\ell = -1}^{\infty} \psi (-\ell) \, \Gamma_{j- \ell},
+\]</span> because for a VAR(<span class="math inline">\(1\)</span>) process <span class="math inline">\(\Gamma_h = \Phi^h \, \Gamma_0\)</span> when <span class="math inline">\(h \geq 0\)</span>, we see that component <span class="math inline">\(j+1\)</span> of <span class="math inline">\(\Upsilon^{\prime} \, B\)</span> is <span class="math display">\[
+  \sum_{\ell =0 }^{ q-1} \psi (\ell) \, \Gamma_{j-\ell}
+  =  {[   A^{\prime} ]}_{j+1} - \sum_{\ell = q}^{\infty} \psi (\ell) \, \Gamma_{j-\ell}.
+\]</span> As <span class="math inline">\(q \rightarrow\infty\)</span> the error term vanishes (for each <span class="math inline">\(j\)</span>), indicating that <span class="math inline">\(\Upsilon^{\prime} \, B \approx A^{\prime}\)</span>, or <span class="math inline">\(P \approx \Upsilon\)</span>.</p>
+</div>
+<p>For computation, we update the treatment given earlier to now discuss the case of a multivariate filter output. To compute the quantities given in <a href="#prp-mdfa-quadsoln2">Proposition&nbsp;<span>3.5</span></a> and the MDFA criterion <a href="#eq-mdfa-criterion2">Equation&nbsp;<span>3.19</span></a>, we approximate each integral by an average over Fourier frequencies: <span class="math display">\[
+  T^{-1} \, \sum_{t=1}^T E_t \, E_t^{\prime} =
+  T^{-1} \sum_{j=-[T/2]}^{T-[T/2]-1}   \widehat{F}_{E} (\omega_{j}),
+\]</span> where <span class="math inline">\(\widehat{F}_{E}\)</span> is the periodogram of the filter errors and <span class="math inline">\(\omega_j = 2 \pi \, j/T\)</span> is a Fourier frequency. The right hand side (with <span class="math inline">\(\widehat{F}_X\)</span> denoting the periodogram of the process) is approximated by <span class="math display">\[
+T^{-1} \sum_{j=-[T/2]}^{T-[T/2]-1}  \left[ \Psi (e^{-i \omega_{j} }) - \widehat{\Psi} (e^{-i \omega_{j} }) \right] \,
+     \widehat{F}_X (\omega_{j}) \,
+{\left[ \Psi (e^{i \omega_{j} }) - \widehat{\Psi}( e^{i \omega_{j} }) \right]}^{\prime}.
+\]</span> This is exactly the criterion <span class="math inline">\(D_{\Psi} (\vartheta, \widehat{F}_X)\)</span> of <a href="#eq-mdfa-criterion2">Equation&nbsp;<span>3.19</span></a> with the integrals replaced by Riemann sums over the Fourier frequencies. With this justification, we see that the entries of the matrix <span class="math inline">\(B\)</span> in <a href="#prp-mdfa-quadsoln2">Proposition&nbsp;<span>3.5</span></a> are approximately computed via <span class="math display">\[
+  B_{j,k} \approx T^{-1} \sum_{\ell=-[T/2]}^{T-[T/2]-1} G (\omega_{\ell}) \,
+   \exp \{ i \, (k-j) (\omega_{\ell}) \}
+\]</span> for <span class="math inline">\(1 \leq j,k \leq T\)</span>. Moreover, for <span class="math inline">\(0 \leq k \leq T-1\)</span> <span class="math display">\[
+  A_k^{\prime} \approx T^{-1}  \sum_{\ell=-[T/2]}^{T-[T/2]-1} \Psi
+    ( e^{ -i \omega_{\ell} }) \,     G (\omega_{\ell}) \,
+   e^{ i  k \omega_{\ell} },
+\]</span> where <span class="math inline">\(A^{\prime} = [ A_0^{\prime}, \ldots, A_{T-1}^{\prime} ]\)</span>. Finally, <span class="math display">\[
+  { \langle \Psi (e^{-i \omega}) \, G (\omega)  \, { \Psi (e^{i \omega}) }^{\prime} \rangle }_0 \approx
+  T^{-1}  \sum_{\ell=-[T/2]}^{T-[T/2]-1}  \Psi
+    ( e^{ -i  \omega_{\ell} } ) \,
+     G (\omega_{\ell}) \,  {\Psi  ( e^{ i \omega_{\ell} } ) }^{\prime}.
+\]</span></p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-politis2019time" class="csl-entry" role="listitem">
+McElroy, Tucker S, and Dimitris N Politis. 2019. <em>Time Series: A First Course with Bootstrap Starter</em>. CRC Press.
+</div>
+<div id="ref-mcelroy2020multivariate" class="csl-entry" role="listitem">
+McElroy, Tucker S, and Marc Wildi. 2020. <span>“The Multivariate Linear Prediction Problem: Model-Based and Direct Filtering Solutions.”</span> <em>Econometrics and Statistics</em> 14: 112–30.
+</div>
+<div id="ref-mcelroy2014fitting" class="csl-entry" role="listitem">
+McElroy, Tucker, and David Findley. 2014. <span>“Fitting Constrained Vector Autoregression Models.”</span> In <em>Empirical Economic and Financial Research: Theory, Methods and Practice</em>, 451–70. Springer.
+</div>
+<div id="ref-taniguchi2012asymptotic" class="csl-entry" role="listitem">
+Taniguchi, Masanobu, and Yoshihide Kakizawa. 2012. <em>Asymptotic Theory of Statistical Inference for Time Series</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-wildi2005" class="csl-entry" role="listitem">
+Wildi, Marc. 2005. <em>Signal Extraction: Efficient Estimation, ’Unit-Root’-Tests and Early Detection of Turning-Points</em>. Springer-Verlag.
+</div>
+<div id="ref-wildi2007real" class="csl-entry" role="listitem">
+———. 2007. <span>“Real-Time Signal Extraction.”</span> <em>Lecture Notes in Economics and Mathematical Systems</em> 547.
+</div>
+<div id="ref-wildi2008" class="csl-entry" role="listitem">
+———. 2008. <em>Real-Time Signal Extraction: Beyond Maximum Likelihood Principles</em>. IDP-Working Book.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+  var custom_title = document.querySelectorAll('.custom .theorem-title');
+  for (let i = 0; i < custom_title.length; i++ ) {
+    var mod_name = custom_title[i].innerHTML;
+    custom_title[i].innerHTML = mod_name.replace("Conjecture", "Remark");
+  };
+  
+  var cnj_citations = document.querySelectorAll("a[href*='#cnj']");
+  for (let i = 0; i < cnj_citations.length; i++ ) {
+    var cite_name = cnj_citations[i].innerHTML;
+    cnj_citations[i].innerHTML = cite_name.replace("Conjecture", "Remark");
+  };
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lpp.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear Prediction Problems</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./constraint.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Multivariate Direct Filter Analysis for Non-stationary Processes</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
