@@ -6,4 +6,8 @@ title: Onesimus Dome
 
 Epic poetry, science fiction, and redemptive drama
 
+### Current Projects
+1. *Sheaf:Messiah*: sequel to *Sheaf:Prodigal*
+2. *Beth Jasher*: the life of King David set to verse 
+
 ![Ocean Background](/images/uploaded-from-file-j.png)
