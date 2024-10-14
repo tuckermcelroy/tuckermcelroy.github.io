@@ -10,13 +10,13 @@ redirect_from:
 This is the home page of Tucker McElroy
 
 # Code Repositories
-1. Ecce Signum
-2. VARHi
+1. [Ecce Signum](https://github.com/tuckermcelroy/sigex)
+2. [VARHi](https://github.com/tuckermcelroy/varhi)
 
    
 # Multivariate Real-Time Signal Extraction
 - Chapter 3
-- Code Repo
+- [Code Repo](https://github.com/tuckermcelroy/MDFA-code)
 
 # Poetry
 - [Onesimus Dome](poetry-main.md)
