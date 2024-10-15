@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-This is the home page of Tucker McElroy
+This is the home page of Tucker McElroy. I am a mathematician, employed as a research statistician at the U.S. Census Bureau.  Also, I am an amateur poet writing under the pseudonym *Onesimus Dome*. 
 
 # Code Repositories
 1. [Ecce Signum](https://github.com/tuckermcelroy/sigex): An R Package for multivariate signal extraction
@@ -23,11 +23,10 @@ This is the home page of Tucker McElroy
 12. [BEwebinar](https://github.com/tuckermcelroy/BEwebinar): Materials for ASA Webinar on time series sponsored by Business and Economics Section
 13. [ma189](https://github.com/tuckermcelroy/ma189): Course materials for UCSD class ma189, winter 2021
     
-
-   
+ 
 # Multivariate Real-Time Signal Extraction
-- Chapter 3
-- [Code Repo](https://github.com/tuckermcelroy/MDFA-code)
+- Chapter 3 of this e-book will be posted here...coming soon.
+- [Code Repo](https://github.com/tuckermcelroy/MDFA-code): R code for the e-book.
 
 # Poetry
 - [Onesimus Dome](poetry-main.md)
