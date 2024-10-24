@@ -25,7 +25,7 @@ This is the home page of Tucker McElroy. I am a mathematician, employed as a res
     
  
 # Multivariate Real-Time Signal Extraction
-- [Chapter 3 of this e-book](basic.html)
+- [Chapter 3 of this e-book](basic.html): this is a sample intended as a preview, so the links to other chapters or equations are disabled.
 - [Code Repo](https://github.com/tuckermcelroy/MDFA-code): R code for the e-book.
 
 # Poetry
