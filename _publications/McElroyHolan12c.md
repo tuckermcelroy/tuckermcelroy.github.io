@@ -1,7 +1,7 @@
 ---
 title: "The Error in Business Cycle Estimates Obtained from Seasonally Adjusted Data"
 collection: publications
-category: manuscripts
+category: chapters
 permalink: /publication/McElroyHolan12c
 excerpt: 
 date: 2012-11-01
