@@ -8,6 +8,6 @@ date: 2012-3-01
 venue: 'Statistica Sinica'
 slidesurl: 
 paperurl: 'http://tuckermcelroy.github.io/files/McElroyHoaln12SS.pdf'
-citation: 'Durrant, M. and McElroy, T. (2010) &quot;On the Computation of Autocovariances for Generalized Gegenbauer Processes.&quot; 
+citation: 'McElroy, T. and Holan, S. (2012) &quot;On the Computation of Autocovariances for Generalized Gegenbauer Processes.&quot; 
 <i>Statistica Sinica</i> 22, 1661-1687.'
 ---
