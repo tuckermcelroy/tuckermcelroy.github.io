@@ -7,7 +7,7 @@ excerpt:
 date: 2015-1-01
 venue: 'Empirical Economic and Financial Research – Theory, Methods, and Practice'
 slidesurl: 
-paperurl: 
+paperurl: 'http://tuckermcelroy.github.io/files/McElroyPang15.pdf'
 citation: 'McElroy, T., and Pang, O. (2015) &quot;The Algebraic Structure of Transformed Time Series.&quot;
 <i>Empirical Economic and Financial Research – Theory, Methods, and Practice</i>.'
 ---
