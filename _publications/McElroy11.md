@@ -1,5 +1,5 @@
 ---
-title: "A Nonparametric Method for Asymmetrically Extending Signal Extraction Filters"
+title: "A Nonparametric Method for Asymmetrically Extending Signal Extraction Filters"
 collection: publications
 category: manuscripts
 permalink: /publication/McElroy11
