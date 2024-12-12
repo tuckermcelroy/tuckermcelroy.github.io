@@ -30,4 +30,4 @@ This is the home page of Tucker McElroy. I am a mathematician, employed as a res
 
 # Poetry
 - [Onesimus Dome](poetry-main.md)
-- [Old Website](http://onesimusdome.com)
+
