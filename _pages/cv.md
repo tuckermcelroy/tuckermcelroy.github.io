@@ -36,21 +36,21 @@ Skills
 
 Publications
 ======
-  <ol>{% for post in site.publications reversed %}
+  <ol reversed>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ol>
   
 Talks
 ======
-  <ul>{% for post in site.talks reversed %}
+  <ol reversed>{% for post in site.talks reversed %}
     {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
+  {% endfor %}</ol>
   
 Teaching
 ======
-  <ul>{% for post in site.teaching reversed %}
+  <ol reversed>{% for post in site.teaching reversed %}
     {% include archive-single-cv.html %}
-  {% endfor %}</ul>
+  {% endfor %}</ol>
   
 Service and leadership
 ======
