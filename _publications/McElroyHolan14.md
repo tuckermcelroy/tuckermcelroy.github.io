@@ -9,5 +9,5 @@ venue: 'Annals of Statistics'
 slidesurl: 
 paperurl: 'http://tuckermcelroy.github.io/files/McElroyHolan14.pdf'
 citation: 'McElroy, T. and Holan, S. (2014) &quot;Asymptotic Theory of Cepstral Random Fields.&quot; 
-<i>Annals of Statistics/i> 42, 64-86.'
+<i>Annals of Statistics</i> 42, 64-86.'
 ---
