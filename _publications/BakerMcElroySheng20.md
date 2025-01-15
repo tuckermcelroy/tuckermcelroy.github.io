@@ -1,5 +1,5 @@
 ---
-title: "Expectation Formation Following Large and Unpredictable Shocks."
+title: "Expectation Formation Following Large and Unpredictable Shocks"
 collection: publications
 category: manuscripts
 permalink: /publication/BakerMcElroySheng20
