@@ -7,7 +7,7 @@ excerpt:
 date: 2021-01-01
 venue: 'Journal of Statistical Planning and Inference'
 slidesurl: 
-paperurl:  
+paperurl:  'http://tuckermcelroy.github.io/files/McElroyRoy21JSPI.pdf'
 citation: 'McElroy, T. and Roy, A. (2021) &quot;Testing for Adequacy of Seasonal Adjustment in the Frequency Domain.&quot; 
 <i>Journal of Statistical Planning and Inference</i> 221, 241-255.'
 ---
