@@ -1,7 +1,7 @@
 ---
 title: "Preface to Time Series Special Issue of the Journal of Official Statistics"
 collection: publications
-category: manuscripts
+category: chapters
 permalink: /publication/BellDiFonzoLadirayMcElroySmith24
 excerpt: 
 date: 2024-09-01
