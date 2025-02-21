@@ -3,7 +3,7 @@ title: "Casting Vector Time Series: Algorithms for Forecasting, Imputation, and 
 collection: publications
 category: manuscripts
 permalink: /publication/McElroy22b
-excerpt: 'Link to GitHub repo: https://github.com/tuckermcelroy/Casting'
+excerpt: 'Link to [GitHub repo](https://github.com/tuckermcelroy/Casting)'
 date: 2022-08-01
 venue: 'Electronic Journal of Statistics'
 slidesurl: 
