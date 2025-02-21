@@ -3,7 +3,7 @@ title: "Model Identification via Total Frobenius Norm of Multivariate Spectra"
 collection: publication
 category: manuscripts
 permalink: /publication/McElroyRoy22a
-excerpt: 
+excerpt: 'Link to [GitHub repo](https://github.com/tuckermcelroy/frobnorm)'
 date: 2022-03-01
 venue: 'Journal of the Royal Statistical Society, Series B'
 slidesurl: 
