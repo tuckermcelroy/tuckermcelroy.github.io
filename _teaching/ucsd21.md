@@ -8,4 +8,4 @@ date: 2021-01-01
 location: "La Jolla, California (taught remotely)"
 ---
 
-Introductory statistics and data science course for junior/senior undergraduate statistics students.
+Introductory statistics and data science course for junior/senior undergraduate statistics students. Link to [GitHub repo](https://github.com/tuckermcelroy/ma189)
