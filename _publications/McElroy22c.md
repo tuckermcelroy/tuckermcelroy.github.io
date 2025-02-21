@@ -3,7 +3,7 @@ title: "Stationary Parameterization of GARCH Processes"
 collection: publications
 category: manuscripts
 permalink: /publication/McElroy22c
-excerpt: 
+excerpt: 'Link to [GitHub repo](https://github.com/tuckermcelroy/GARCH-param)'
 date: 2022-10-01
 venue: 'Economics Bulletin'
 slidesurl: 
