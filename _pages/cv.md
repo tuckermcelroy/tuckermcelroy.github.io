@@ -32,7 +32,8 @@ Skills
 ======
 * Statistical research
 * Writing and publishing scientific papers
-* R, RCPP, R Markdown, ...
+* R, RCPP, LaTeX, R Markdown, GitHub, Quarto, Shiny, Fortran, Python
+* Languages: French (R), German (R/W), Spanish (R), Arabic (R)
 
 Publications
 ======
