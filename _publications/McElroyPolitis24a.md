@@ -3,7 +3,7 @@ title: "Estimating the Spectral Density at Frequencies Near Zero"
 collection: publications
 category: manuscripts
 permalink: /publication/McElroyPolitis24a
-excerpt: 
+excerpt: 'Link to [GitHub repo](https://github.com/tuckermcelroy/SpecLocal)'
 date: 2024-01-01
 venue: 'Journal of the American Statistical Association'
 slidesurl: 
