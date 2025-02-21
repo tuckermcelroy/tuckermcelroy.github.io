@@ -3,7 +3,7 @@ title: "Frequency Domain Calculation of Seasonal VARMA Autocovariances"
 collection: publication
 category: manuscripts
 permalink: /publication/McElroy22a
-excerpt: 
+excerpt: 'Link to [GitHub repo](https://github.com/tuckermcelroy/VARMAacf)'
 date: 2022-01-01
 venue: 'Journal of Computational and Graphical Statistics'
 slidesurl: 
