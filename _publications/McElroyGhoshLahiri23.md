@@ -3,7 +3,7 @@ title: "Quadratic Prediction of Time Series via Autocumulants"
 collection: publications
 category: manuscripts
 permalink: /publication/McElroyGhoshLahiri23
-excerpt: 
+excerpt: 'Link to [GitHub repo](https://github.com/tuckermcelroy/QuadraticPrediction)'
 date: 2023-07-01
 venue: 'Sankhya A'
 slidesurl: 
