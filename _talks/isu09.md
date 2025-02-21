@@ -1,5 +1,5 @@
 ---
-title: "Distribution Theory for the Studentized Mean for Long, Short, Negative, and Differential Memory Time Series"
+title: "Distribution Theory for the Studentized Mean for Long, Short, Negative, and Differential Memory Time Series"
 collection: talks
 type: "Talk"
 permalink: /talks/isu09
