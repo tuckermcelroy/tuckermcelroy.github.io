@@ -7,3 +7,5 @@ venue: "American Statistical Association Webinar"
 date: 2021-04-08
 location: "Virtual"
 ---
+
+Materials for this ASA Webinar: [GitHub repo](https://github.com/tuckermcelroy/BEwebinar)
