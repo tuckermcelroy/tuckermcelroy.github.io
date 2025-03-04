@@ -7,3 +7,5 @@ venue: "Recent Advances in Time Series Analysis"
 date: 2024-03-21
 location: "College Park, Maryland"
 ---
+
+Materials for this talk: [slides](http://tuckermcelroy.github.io/files/BrinMcElroy_3-18-24.pdf)
